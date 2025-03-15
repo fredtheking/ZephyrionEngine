@@ -2,8 +2,6 @@
 using ZephyrionEngine.Utils.Interfaces;
 using ZephyrionEngine.Utils.Settings;
 
-namespace ZephyrionEngine;
-
 public class ZephyrionGame : IScript
 {
   public SetupHelper Settings;

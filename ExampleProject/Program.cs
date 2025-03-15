@@ -1,5 +1,4 @@
-﻿using ZephyrionEngine;
-using ZephyrionEngine.Utils.Settings;
+﻿using ZephyrionEngine.Utils.Settings;
 
 ZephyrionGame game = new(new WindowSettings.Builder()
   .SetWidth(1920)
