@@ -13,7 +13,7 @@ public interface IScript
   public virtual void Initialisation(ZephyrionGame game) { }
   
   /// <summary>
-  /// Called as a 'LateInitialisation' method if you need to do something after main one.
+  /// Called as 'LateInitialisation' method if you need to do something after main one.
   /// </summary>
   public virtual void Start(ZephyrionGame game) { }
   
