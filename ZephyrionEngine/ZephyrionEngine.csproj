@@ -7,10 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Utils\Console\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <PackageReference Include="DearImGui.OpenTK" Version="1.0.0.1" />
       <PackageReference Include="OpenTK" Version="4.9.3" />
     </ItemGroup>
