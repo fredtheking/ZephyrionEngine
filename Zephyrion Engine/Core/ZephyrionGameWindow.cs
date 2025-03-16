@@ -17,10 +17,4 @@ public class ZephyrionGameWindow : GameWindow
       SwapBuffers();
     };
   }
-
-  public override void Run()
-  {
-    base.Run();
-    Console.WriteLine("Hi!");
-  }
 }

@@ -1,11 +1,11 @@
 ﻿using OpenTK.Mathematics;
+using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using ZephyrionEngine.Managers;
 using ZephyrionEngine.Settings;
 using ZephyrionEngine.Utils.Interfaces;
 using ZephyrionEngine.Utils.Settings;
-using Monitor = OpenTK.Windowing.GraphicsLibraryFramework.Monitor;
 
 namespace ZephyrionEngine;
 
@@ -46,7 +46,7 @@ public class ZephyrionGame : IScript
     {
       Console.WriteLine("Starting Zephyrion engine...");
       
-      Console.WriteLine("Engine started!");
+      Console.WriteLine("Engine started! Opening window...");
 
       Managers.Window.It.Run();
     }
