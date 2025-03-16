@@ -1,9 +1,15 @@
-﻿using ZephyrionEngine.Utils;
+﻿using OpenTK.Mathematics;
+using OpenTK.Windowing.Desktop;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 using ZephyrionEngine.Utils.Interfaces;
 using ZephyrionEngine.Utils.Settings;
+using Monitor = OpenTK.Windowing.GraphicsLibraryFramework.Monitor;
+
+namespace ZephyrionEngine;
 
 public class ZephyrionGame : IScript
 {
+  public ZGameWindow GameWindow;
   public SetupHelper Settings;
 
   public ZephyrionGame(WindowSettings? window = null)
@@ -12,6 +18,27 @@ public class ZephyrionGame : IScript
     {
       Window = window ?? new WindowSettings()
     };
+
+    NativeWindowSettings nativeWindow = new NativeWindowSettings
+    {
+      Title = Settings.Window.Title,
+      WindowBorder = Settings.Window.BorderMode,
+      WindowState = Settings.Window.State,
+      ClientSize = Settings.Window.Size,
+    };
+    
+    if (Settings.Window.MinSize != -Vector2i.One) nativeWindow.MinimumClientSize = Settings.Window.MinSize;
+    if (Settings.Window.MaxSize != -Vector2i.One) nativeWindow.MaximumClientSize = Settings.Window.MaxSize;
+    if (Settings.Window.StartPosition == -Vector2i.One)
+    {
+      unsafe
+      {
+        VideoMode* mode = GLFW.GetVideoMode(GLFW.GetPrimaryMonitor());
+        nativeWindow.Location = new Vector2i((mode->Width - Settings.Window.Size.X) / 2, (mode->Height - Settings.Window.Size.Y) / 2);
+      }
+    }
+    
+    GameWindow = new ZGameWindow(this, GameWindowSettings.Default, nativeWindow);
   }
   
   public void Run()
@@ -21,8 +48,8 @@ public class ZephyrionGame : IScript
       Console.WriteLine("Starting Zephyrion engine...");
       
       Console.WriteLine("Engine started!");
-      
-      
+
+      GameWindow.Run();
     }
     else
     {

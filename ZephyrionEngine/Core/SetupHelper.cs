@@ -1,6 +1,5 @@
+using ZephyrionEngine;
 using ZephyrionEngine.Utils.Settings;
-
-namespace ZephyrionEngine.Utils;
 
 public class SetupHelper(ZephyrionGame game)
 {

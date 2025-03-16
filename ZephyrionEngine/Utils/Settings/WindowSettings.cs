@@ -1,4 +1,5 @@
-using System.Numerics;
+using OpenTK.Mathematics;
+using OpenTK.Windowing.Common;
 using ZephyrionEngine.Utils.Etc;
 
 namespace ZephyrionEngine.Utils.Settings;
@@ -6,9 +7,12 @@ namespace ZephyrionEngine.Utils.Settings;
 public class WindowSettings
 {
   public RefString Title { get; set; } = "Hello, Zephyrion!";
-  public int Width { get; set; } = 800;
-  public int Height { get; set; } = 600;
-  public Vector2 StartPosition { get; set; } = new(-1, -1);
+  public WindowBorder BorderMode { get; set; } = WindowBorder.Resizable;
+  public WindowState State { get; set; } = WindowState.Normal;
+  public Vector2i Size { get; set; } = new(800, 600);
+  public Vector2i MinSize { get; set; } = new(-1);
+  public Vector2i MaxSize { get; set; } = new(-1);
+  public Vector2i StartPosition { get; set; } = new(-1, -1);
   
   public class Builder
   {
@@ -26,15 +30,33 @@ public class WindowSettings
       return this;
     }
     
-    public Builder SetWidth(int width)
+    public Builder SetBorderMode(WindowBorder borderMode)
     {
-      _settings.Width = width;
+      _settings.BorderMode = borderMode;
       return this;
     }
     
-    public Builder SetHeight(int height)
+    public Builder SetState(WindowState state)
     {
-      _settings.Height = height;
+      _settings.State = state;
+      return this;
+    }
+    
+    public Builder SetSize(Vector2i size)
+    {
+      _settings.Size = size;
+      return this;
+    }
+    
+    public Builder SetMinSize(Vector2i size)
+    {
+      _settings.MinSize = size;
+      return this;
+    }
+    
+    public Builder SetMaxSize(Vector2i size)
+    {
+      _settings.MaxSize = size;
       return this;
     }
     
@@ -43,7 +65,7 @@ public class WindowSettings
     /// </summary>
     /// <param name="position">Start position of window. Pivot point is center</param>
     /// <returns></returns>
-    public Builder SetStartPosition(Vector2 position)
+    public Builder SetStartPosition(Vector2i position)
     {
       _settings.StartPosition = position;
       return this;

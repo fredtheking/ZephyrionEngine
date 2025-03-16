@@ -1,9 +1,12 @@
-﻿using ZephyrionEngine.Utils.Settings;
+﻿using OpenTK.Mathematics;
+using OpenTK.Windowing.Common;
+using ZephyrionEngine;
+using ZephyrionEngine.Utils.Settings;
 
 ZephyrionGame game = new(new WindowSettings.Builder()
-  .SetWidth(1920)
-  .SetHeight(1080)
-  .SetTitle("Testing...")
+  .SetSize(new Vector2i(1280, 720))
+  .SetBorderMode(WindowBorder.Fixed)
+  .SetStartPosition(new Vector2i(-1))
   .Build());
 
 game.Run();
