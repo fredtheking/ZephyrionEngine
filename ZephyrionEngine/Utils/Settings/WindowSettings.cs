@@ -6,7 +6,7 @@ namespace ZephyrionEngine.Utils.Settings;
 
 public class WindowSettings
 {
-  public RefString Title { get; set; } = "Hello, Zephyrion!";
+  public string Title { get; set; } = "Hello, Zephyrion!";
   public WindowBorder BorderMode { get; set; } = WindowBorder.Resizable;
   public WindowState State { get; set; } = WindowState.Normal;
   public Vector2i Size { get; set; } = new(800, 600);
@@ -19,12 +19,6 @@ public class WindowSettings
     private readonly WindowSettings _settings = new();
   
     public Builder SetTitle(string title)
-    {
-      _settings.Title = title;
-      return this;
-    }
-    
-    public Builder SetTitle(RefString title)
     {
       _settings.Title = title;
       return this;
