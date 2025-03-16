@@ -4,7 +4,7 @@ using ZephyrionEngine.Utils.Etc;
 
 namespace ZephyrionEngine.Utils.Settings;
 
-public class WindowSettings
+public class WindowSetting
 {
   public string Title { get; set; } = "Hello, Zephyrion!";
   public WindowBorder BorderMode { get; set; } = WindowBorder.Resizable;
@@ -16,41 +16,41 @@ public class WindowSettings
   
   public class Builder
   {
-    private readonly WindowSettings _settings = new();
+    private readonly WindowSetting _setting = new();
   
     public Builder SetTitle(string title)
     {
-      _settings.Title = title;
+      _setting.Title = title;
       return this;
     }
     
     public Builder SetBorderMode(WindowBorder borderMode)
     {
-      _settings.BorderMode = borderMode;
+      _setting.BorderMode = borderMode;
       return this;
     }
     
     public Builder SetState(WindowState state)
     {
-      _settings.State = state;
+      _setting.State = state;
       return this;
     }
     
     public Builder SetSize(Vector2i size)
     {
-      _settings.Size = size;
+      _setting.Size = size;
       return this;
     }
     
     public Builder SetMinSize(Vector2i size)
     {
-      _settings.MinSize = size;
+      _setting.MinSize = size;
       return this;
     }
     
     public Builder SetMaxSize(Vector2i size)
     {
-      _settings.MaxSize = size;
+      _setting.MaxSize = size;
       return this;
     }
     
@@ -61,10 +61,10 @@ public class WindowSettings
     /// <returns></returns>
     public Builder SetStartPosition(Vector2i position)
     {
-      _settings.StartPosition = position;
+      _setting.StartPosition = position;
       return this;
     }
 
-    public WindowSettings Build() => _settings;
+    public WindowSetting Build() => _setting;
   }
 }
