@@ -1,18 +1,19 @@
 ﻿using OpenTK.Mathematics;
-using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using ZephyrionEngine.Core;
 using ZephyrionEngine.Managers;
+using ZephyrionEngine.Pools;
 using ZephyrionEngine.Settings;
-using ZephyrionEngine.Utils.Interfaces;
-using ZephyrionEngine.Utils.Settings;
 
 namespace ZephyrionEngine;
 
-public class ZephyrionGame : IScript
+public class ZephyrionGame
 {
   public ManagersDirectory Managers { get; } = new();
   public SettingsDirectory Settings { get; } = new();
+  public PoolsDirectory Pools { get; } = new();
+  public MainPipeline Pipeline { get; } = new();
 
   public ZephyrionGame(WindowSetting? window = null)
   {
@@ -38,11 +39,14 @@ public class ZephyrionGame : IScript
     }
     
     Managers.Window.It = new ZephyrionGameWindow(this, GameWindowSettings.Default, nativeWindow);
+    
+    Pipeline.Initialisation(this);
+    Pipeline.Start(this);
   }
   
   public void Run()
   {
-    if (Managers.Setup.CheckSetup())
+    if (Managers.Setup.CheckOverallSetup())
     {
       Console.WriteLine("Starting Zephyrion engine...");
       
@@ -58,9 +62,10 @@ public class ZephyrionGame : IScript
       
       if (!Managers.Setup.WindowSuccessful) Console.WriteLine("\t- Window Setup: Looks like you need to provide WindowSettings builder class.");
       if (!Managers.Setup.RegistrySuccessful) Console.WriteLine("\t- Registry Setup: This Engine uses registry to store all the game data. Consider creating one.");
+      if (!Managers.Setup.OpenGLExtensionsSuccessful) Console.WriteLine("\t- OpenGL Extensions Setup: Honestly, no idea what you can do here. Cry?");
       
       Console.WriteLine("\nIf you have any questions, you are open to visit the documentation on GitHub. Rebuild as soon as you fix the errors.\n" +
-                        "Engine's Github: https://github.com/TaswellFan\n" +
+                        "Engine's Github: https://github.com/TaswellFan/ZephyrionEngine\n" +
                         "Documentation: https://github.com/TaswellFan");
     }
   }

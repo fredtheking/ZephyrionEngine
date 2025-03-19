@@ -3,37 +3,37 @@ namespace ZephyrionEngine.Utils.Interfaces;
 public interface IScript
 {
   /// <summary>
-  /// Called in the end of a constructor.
+  /// Called before main initialisation. Not recommended to override as its purpose is to set up system.
   /// </summary>
-  public virtual void Constructor(ZephyrionGame game) { }
-  
+  public void SystemSetup(ZephyrionGame game) { }
+
   /// <summary>
   /// Called after successful constructors initialisations.
   /// </summary>
-  public virtual void Initialisation(ZephyrionGame game) { }
+  public void Initialisation(ZephyrionGame game);
   
   /// <summary>
   /// Called as 'LateInitialisation' method if you need to do something after main one.
   /// </summary>
-  public virtual void Start(ZephyrionGame game) { }
+  public void Start(ZephyrionGame game);
   
   /// <summary>
   /// Called the frame before entering a new scene.
   /// </summary>
-  public virtual void Enter(ZephyrionGame game) { }
+  public void Enter(ZephyrionGame game) { }
   
   /// <summary>
   /// Called the frame before leaving a scene.
   /// </summary>
-  public virtual void Leave(ZephyrionGame game) { }
+  public void Leave(ZephyrionGame game) { }
   
   /// <summary>
   /// Called every frame to update.
   /// </summary>
-  public virtual void Update(ZephyrionGame game) { }
+  public void Update(ZephyrionGame game, double deltaTime);
   
   /// <summary>
   /// Called every frame to render.
   /// </summary>
-  public virtual void Render(ZephyrionGame game) { }
+  public void Render(ZephyrionGame game);
 }

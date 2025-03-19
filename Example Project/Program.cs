@@ -1,6 +1,6 @@
 ﻿using OpenTK.Mathematics;
 using ZephyrionEngine;
-using ZephyrionEngine.Utils.Settings;
+using ZephyrionEngine.Settings;
 
 ZephyrionGame game = new(
   new WindowSetting.Builder()

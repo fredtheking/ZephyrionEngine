@@ -1,8 +1,7 @@
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
-using ZephyrionEngine.Utils.Etc;
 
-namespace ZephyrionEngine.Utils.Settings;
+namespace ZephyrionEngine.Settings;
 
 public class WindowSetting
 {

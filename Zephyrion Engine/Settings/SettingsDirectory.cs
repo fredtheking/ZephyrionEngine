@@ -1,6 +1,4 @@
-﻿using ZephyrionEngine.Utils.Settings;
-
-namespace ZephyrionEngine.Settings;
+﻿namespace ZephyrionEngine.Settings;
 
 public class SettingsDirectory
 {
