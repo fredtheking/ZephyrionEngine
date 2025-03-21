@@ -40,6 +40,7 @@ public class ZephyrionGame
     
     Managers.Window.It = new ZephyrionGameWindow(this, GameWindowSettings.Default, nativeWindow);
     
+    Pipeline.SystemSetup(this);
     Pipeline.Initialisation(this);
     Pipeline.Start(this);
   }

@@ -4,5 +4,10 @@ namespace ZephyrionEngine.Pools;
 
 public class NodePool
 {
-  public List<NodeObject> All = [];
+  public List<Node> All = [];
+
+  public void Register(string name, params Node[] children)
+  {
+    All.Add(new(name, children));
+  }
 }

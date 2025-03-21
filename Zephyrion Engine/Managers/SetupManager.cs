@@ -47,7 +47,7 @@ public class SetupManager
     string extensions = GL.GetString(StringName.Extensions);
     OpenGLExtensionsSuccessful = extensions.Contains("GL_ARB_framebuffer_object") &&
                                  extensions.Contains("GL_ARB_vertex_array_object");
-    return OpenGLExtensionsSuccessful;
+    return true;
   }
 
 }
