@@ -9,8 +9,9 @@ public static class MenuScene
   public static void Render(EditorWindow editor)
   {
     ImGui.Begin("Menu", ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoResize);
-    ImGui.SetWindowPos(Vector2.Zero);
-    ImGui.SetWindowSize(editor.windowSize);
+    
+    ImGui.SetWindowPos(Vector2.One * editor.fullscreeenSpace);
+    ImGui.SetWindowSize(editor.windowSize - Vector2.One * editor.fullscreeenSpace * 2f);
     
     ImGui.Text("Menu");
     

@@ -16,8 +16,10 @@ public class EditorWindow
   public Action<EditorWindow>? Global;
   public Dictionary<EditorSceneNames, Action<EditorWindow>>? MainLoopEvents;
   public EditorSceneNames currentScene;
+  
   public bool debug;
   public Vector2 windowSize;
+  public readonly float fullscreeenSpace = 24f;
 
   public EditorWindow()
   {
@@ -36,7 +38,7 @@ public class EditorWindow
     Raylib.SetConfigFlags(ConfigFlags.ResizableWindow | ConfigFlags.AlwaysRunWindow);
     Raylib.InitWindow(1360, 1024, "Level Editor - ...");
     Raylib.InitAudioDevice();
-    rlImGui.Setup();
+    rlImGui.Setup(enableDocking: true);
     ChangeScene(EditorSceneNames.Menu);
 
     while (!Raylib.WindowShouldClose())
@@ -56,7 +58,7 @@ public class EditorWindow
         var index = ((int)currentScene - 1 + length) % length;
         ChangeScene((EditorSceneNames)index);
       }
-#endif
+      #endif
       
       Raylib.BeginDrawing();
       Raylib.ClearBackground(Color.DarkGray);
