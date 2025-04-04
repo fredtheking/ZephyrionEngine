@@ -1,23 +1,18 @@
-using OpenTK.Graphics.OpenGL4;
-using OpenTK.Windowing.GraphicsLibraryFramework;
+using Raylib_cs;
 using ZephyrionEngine.Utils.Interfaces;
 
 namespace ZephyrionEngine.Core;
 
 public class MainPipeline : IScript
 {
-  public void SystemSetup(ZephyrionGame game)
+  public void Setup(ZephyrionGame game)
   {
-    game.Managers.Window.It.KeyDown += args =>
-    {
-      if (args.Key == Keys.Escape) 
-        game.Managers.Window.It.Close();
-    };
+    
   }
 
   public void Initialisation(ZephyrionGame game)
   {
-    
+    game.Managers.Window.Initialisation(game);
   }
 
   public void Start(ZephyrionGame game)
@@ -25,13 +20,18 @@ public class MainPipeline : IScript
     
   }
 
-  public void Update(ZephyrionGame game, double deltaTime)
+  public void Update(ZephyrionGame game)
   {
-    
+    game.Managers.Window.Update(game);
   }
 
   public void Render(ZephyrionGame game)
   {
+    Raylib.BeginDrawing();
+    Raylib.ClearBackground(game.Settings.Window.BackgroundColor);
     
+    game.Managers.Window.Render(game);
+    
+    Raylib.EndDrawing();
   }
 }

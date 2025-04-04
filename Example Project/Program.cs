@@ -1,15 +1,15 @@
-﻿using OpenTK.Mathematics;
-using OpenTK.Windowing.Common;
+﻿using Raylib_cs;
+using System.Numerics;
 using ZephyrionEngine;
-using ZephyrionEngine.Core;
 using ZephyrionEngine.Settings;
 
 ZephyrionGame game = new(
   new WindowSetting.Builder()
-  .SetSize(new Vector2i(1280, 720))
-  .SetStartPosition(new Vector2i(-1))
-  .SetBorderMode(WindowBorder.Resizable)
+  .SetSize(new Vector2(1280, 720))
+  .SetPosition(new Vector2(-1))
+  .SetFlags(ConfigFlags.ResizableWindow)
   .SetTitle("Test app!!!")
+  .SetBackgroundColor(Color.DarkGray)
   .Build());
 
 game.Pools.Node.Register("Main");

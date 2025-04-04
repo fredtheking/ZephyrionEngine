@@ -4,34 +4,18 @@ using ZephyrionEngine.Utils.Interfaces;
 
 namespace ZephyrionEngine.Utils.Templates;
 
-public class NodeTemplate : UuidIdentifier, IInitialised, IScript
+public abstract class NodeTemplate : UuidIdentifier, IInitialised, IScript, ISceneable
 {
   public bool Initialised { get; set; }
   public RefString Name { get; set; }
   public List<Node> Children { get; protected init; }
-
-  public virtual void SystemSetup(ZephyrionGame game)
-  {
-    
-  }
-
-  public virtual void Initialisation(ZephyrionGame game)
-  {
-    
-  }
-
-  public virtual void Start(ZephyrionGame game)
-  {
-    
-  }
-
-  public virtual void Update(ZephyrionGame game, double deltaTime)
-  {
-    
-  }
-
-  public virtual void Render(ZephyrionGame game)
-  {
-    
-  }
+  
+  public abstract void Setup(ZephyrionGame game);
+  public abstract void Initialisation(ZephyrionGame game);
+  public abstract void Start(ZephyrionGame game);
+  public abstract void Update(ZephyrionGame game);
+  public abstract void Render(ZephyrionGame game);
+  
+  public abstract void Enter(ZephyrionGame game);
+  public abstract void Leave(ZephyrionGame game);
 }

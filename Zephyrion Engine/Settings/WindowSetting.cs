@@ -1,18 +1,20 @@
-using OpenTK.Mathematics;
-using OpenTK.Windowing.Common;
+using System.Numerics;
+using Raylib_cs;
 
 namespace ZephyrionEngine.Settings;
 
 public class WindowSetting
 {
   public string Title { get; set; } = "Hello, Zephyrion!";
-  public WindowBorder BorderMode { get; set; } = WindowBorder.Resizable;
-  public WindowState State { get; set; } = WindowState.Normal;
-  public Vector2i Size { get; set; } = new(800, 600);
-  public Vector2i MinSize { get; set; } = new(-1);
-  public Vector2i MaxSize { get; set; } = new(-1);
-  public Vector2i StartPosition { get; set; } = new(-1, -1);
-  
+  public float Transparency { get; set; } = 1f;
+  public Color BackgroundColor { get; set; } = Color.Black;
+  public bool SoundOn { get; set; } = true;
+  public Vector2 Position { get; set; } = new(-1, -1);
+  public ConfigFlags Flags { get; set; } = ConfigFlags.AlwaysRunWindow | ConfigFlags.VSyncHint;
+  public Vector2 Size { get; set; } = new(800, 600);
+  public Vector2 MinSize { get; set; } = new(-1);
+  public Vector2 MaxSize { get; set; } = new(-1);
+
   public class Builder
   {
     private readonly WindowSetting _setting = new();
@@ -23,33 +25,21 @@ public class WindowSetting
       return this;
     }
     
-    public Builder SetBorderMode(WindowBorder borderMode)
+    public Builder SetTransparency(float transparency)
     {
-      _setting.BorderMode = borderMode;
+      _setting.Transparency = transparency;
       return this;
     }
     
-    public Builder SetState(WindowState state)
+    public Builder SetBackgroundColor(Color backgroundColor)
     {
-      _setting.State = state;
+      _setting.BackgroundColor = backgroundColor;
       return this;
     }
     
-    public Builder SetSize(Vector2i size)
+    public Builder SetSoundOn(bool turned)
     {
-      _setting.Size = size;
-      return this;
-    }
-    
-    public Builder SetMinSize(Vector2i size)
-    {
-      _setting.MinSize = size;
-      return this;
-    }
-    
-    public Builder SetMaxSize(Vector2i size)
-    {
-      _setting.MaxSize = size;
+      _setting.SoundOn = turned;
       return this;
     }
     
@@ -58,9 +48,33 @@ public class WindowSetting
     /// </summary>
     /// <param name="position">Start position of window. Pivot point is center</param>
     /// <returns></returns>
-    public Builder SetStartPosition(Vector2i position)
+    public Builder SetPosition(Vector2 position)
     {
-      _setting.StartPosition = position;
+      _setting.Position = position;
+      return this;
+    }
+    
+    public Builder SetFlags(ConfigFlags flags)
+    {
+      _setting.Flags = flags;
+      return this;
+    }
+    
+    public Builder SetSize(Vector2 size)
+    {
+      _setting.Size = size;
+      return this;
+    }
+    
+    public Builder SetMinSize(Vector2 size)
+    {
+      _setting.MinSize = size;
+      return this;
+    }
+    
+    public Builder SetMaxSize(Vector2 size)
+    {
+      _setting.MaxSize = size;
       return this;
     }
 
