@@ -3,16 +3,8 @@ using System.Numerics;
 using ZephyrionEngine;
 using ZephyrionEngine.Settings;
 
-ZephyrionGame game = new(
-  new WindowSetting.Builder()
-  .SetSize(new Vector2(1280, 720))
-  .SetPosition(new Vector2(-1))
-  .SetFlags(ConfigFlags.ResizableWindow)
-  .SetTitle("Test app!!!")
-  .SetBackgroundColor(Color.DarkGray)
-  .Build());
+ZephyrionGame.Setup();
 
-game.Pools.Node.Register("Main");
-game.Managers.Project.Load("proj.zpf");
+ZephyrionGame.Pools.Node.Register("Main");
 
-game.Run();
+ZephyrionGame.Run();

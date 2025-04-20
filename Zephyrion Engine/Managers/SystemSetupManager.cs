@@ -1,4 +1,4 @@
-public class SetupManager
+public class SystemSetupManager
 {
   /// <summary>
   /// Whether the registry setup was successful.

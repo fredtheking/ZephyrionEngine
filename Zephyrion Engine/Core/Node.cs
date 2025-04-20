@@ -6,7 +6,6 @@ namespace ZephyrionEngine.Core;
 public class Node : NodeTemplate
 {
   public List<Node> Parents { get; } = [];
-  public NodeFlags Flags { get; set; }
 
   public Node(string name, Node[] children)
   {
@@ -17,33 +16,33 @@ public class Node : NodeTemplate
       child.Parents.Add(this);
   }
 
-  public override void Setup(ZephyrionGame game)
+  public override void Setup()
   {
-    throw new NotImplementedException();
+    
   }
-  public override void Initialisation(ZephyrionGame game)
+  public override void Initialisation()
   {
-    throw new NotImplementedException();
+    
   }
-  public override void Start(ZephyrionGame game)
+  public override void Begin()
   {
-    throw new NotImplementedException();
+    
   }
-  public override void Update(ZephyrionGame game)
+  public override void Update()
   {
-    throw new NotImplementedException();
+    
   }
-  public override void Render(ZephyrionGame game)
+  public override void Render()
   {
-    throw new NotImplementedException();
+    
   }
 
-  public override void Enter(ZephyrionGame game)
+  public override void Enter()
   {
-    throw new NotImplementedException();
+    
   }
-  public override void Leave(ZephyrionGame game)
+  public override void Leave()
   {
-    throw new NotImplementedException();
+    
   }
 }

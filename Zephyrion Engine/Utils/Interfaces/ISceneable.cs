@@ -5,10 +5,10 @@ public interface ISceneable
   /// <summary>
   /// Called the frame before entering a new scene.
   /// </summary>
-  public void Enter(ZephyrionGame game);
+  public void Enter();
   
   /// <summary>
-  /// Called the frame before leaving a scene.
+  /// Called the frame before leaving current scene.
   /// </summary>
-  public void Leave(ZephyrionGame game);
+  public void Leave();
 }

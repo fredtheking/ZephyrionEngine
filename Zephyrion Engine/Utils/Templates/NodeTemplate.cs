@@ -1,21 +1,28 @@
 using ZephyrionEngine.Core;
+using ZephyrionEngine.Utils.Enums;
 using ZephyrionEngine.Utils.Etc;
 using ZephyrionEngine.Utils.Interfaces;
 
 namespace ZephyrionEngine.Utils.Templates;
 
-public abstract class NodeTemplate : UuidIdentifier, IInitialised, IScript, ISceneable
+public abstract class NodeTemplate : UuidIdentifier, IInitialised, ISetup, IUpdateable, IRenderable, ISceneable
 {
   public bool Initialised { get; set; }
-  public RefString Name { get; set; }
-  public List<Node> Children { get; protected init; }
+  public string Name;
+  public NodeFlags Flags { get; set; }
+  public List<Node> Parents { get; protected init; } = [];
+  public List<Node> Children { get; protected init; } = [];
+
+  public bool HasFlag(NodeFlags flags) => (Flags & flags) != 0;
+  public void AddFlag(NodeFlags flags) => Flags |= flags;
+  public void RemoveFlag(NodeFlags flags) => Flags &= ~flags;
+
+  public abstract void Setup();
+  public abstract void Initialisation();
+  public abstract void Begin();
+  public abstract void Update();
+  public abstract void Render();
   
-  public abstract void Setup(ZephyrionGame game);
-  public abstract void Initialisation(ZephyrionGame game);
-  public abstract void Start(ZephyrionGame game);
-  public abstract void Update(ZephyrionGame game);
-  public abstract void Render(ZephyrionGame game);
-  
-  public abstract void Enter(ZephyrionGame game);
-  public abstract void Leave(ZephyrionGame game);
+  public abstract void Enter();
+  public abstract void Leave();
 }

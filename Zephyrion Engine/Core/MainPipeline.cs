@@ -3,34 +3,35 @@ using ZephyrionEngine.Utils.Interfaces;
 
 namespace ZephyrionEngine.Core;
 
-public class MainPipeline : IScript
+public class MainPipeline : ISetup, IUpdateable, IRenderable
 {
-  public void Setup(ZephyrionGame game)
+  public void Setup()
   {
-    
+    ZephyrionGame.Pools.Node.Register("Root");
+    ZephyrionGame.Managers.Setup();
   }
 
-  public void Initialisation(ZephyrionGame game)
+  public void Initialisation()
   {
-    game.Managers.Window.Initialisation(game);
+    ZephyrionGame.Managers.Initialisation();
   }
 
-  public void Start(ZephyrionGame game)
+  public void Begin()
   {
-    
+    ZephyrionGame.Managers.Begin();
   }
 
-  public void Update(ZephyrionGame game)
+  public void Update()
   {
-    game.Managers.Window.Update(game);
+    ZephyrionGame.Managers.Update();
   }
 
-  public void Render(ZephyrionGame game)
+  public void Render()
   {
     Raylib.BeginDrawing();
-    Raylib.ClearBackground(game.Settings.Window.BackgroundColor);
+    Raylib.ClearBackground(ZephyrionGame.Settings.Window.BackgroundColor);
     
-    game.Managers.Window.Render(game);
+    ZephyrionGame.Managers.Render();
     
     Raylib.EndDrawing();
   }
