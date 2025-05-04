@@ -13,9 +13,9 @@ public abstract class NodeTemplate : UuidIdentifier, IInitialised, ISetup, IUpda
   public List<Node> Parents { get; protected init; } = [];
   public List<Node> Children { get; protected init; } = [];
 
-  public bool HasFlag(NodeFlags flags) => (Flags & flags) != 0;
-  public void AddFlag(NodeFlags flags) => Flags |= flags;
-  public void RemoveFlag(NodeFlags flags) => Flags &= ~flags;
+  public bool HasFlag(NodeFlags flags) => (this.Flags & flags) != 0;
+  public void AddFlag(NodeFlags flags) => this.Flags |= flags;
+  public void RemoveFlag(NodeFlags flags) => this.Flags &= ~flags;
 
   public abstract void Setup();
   public abstract void Initialisation();

@@ -1,3 +1,5 @@
+using System.ComponentModel;
+using System.Numerics;
 using Raylib_cs;
 using ZephyrionEngine.Settings;
 using ZephyrionEngine.Utils.Interfaces;
@@ -6,34 +8,36 @@ namespace ZephyrionEngine.Managers;
 
 public class WindowManager : IRun, ISetup, IUpdateable
 {
-  public WindowSetting Settings { get; set; }
-  public event Action Resized;
-  public event Action Focused;
-  public event Action Hidden;
-  public event Action Fullscreen;
-  public event Action Maximized;
-  public event Action Minimized;
+  public event Action? Resized;
+  public event Action? Focused;
+  public event Action? Hidden;
+  public event Action? Fullscreen;
+  public event Action? Maximized;
+  public event Action? Minimized;
   
   public void Run()
   {
     while (!Raylib.WindowShouldClose())
     {
-      ZephyrionGame.Pipeline.Update();
-      ZephyrionGame.Pipeline.Render();
+      Zephyrion.Pipeline.Update();
+      Zephyrion.Pipeline.Render();
     }
   }
 
   public void Close()
   {
-    if (Settings.SoundOn) Raylib.CloseAudioDevice();
+    if (Zephyrion.Settings.Window.SoundOn) Raylib.CloseAudioDevice();
     Raylib.CloseWindow();
   }
 
   public void Setup()
   {
-    Raylib.SetConfigFlags(Settings.Flags);
-    Raylib.InitWindow((int)Settings.Size.X, (int)Settings.Size.Y, Settings.Title);
-    if (Settings.SoundOn) Raylib.InitAudioDevice();
+    WindowSettings window = Zephyrion.Settings.Window;
+    
+    Raylib.SetConfigFlags(window.Flags);
+    Raylib.InitWindow((int)window.Size.X, (int)window.Size.Y, window.Title);
+    Raylib.SetTargetFPS(Zephyrion.Settings.Window.Fps);
+    if (window.SoundOn) Raylib.InitAudioDevice();
   }
 
   public void Initialisation() { }

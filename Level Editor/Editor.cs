@@ -1,5 +1,4 @@
-﻿#pragma warning disable CS8670
-using Level_Editor.Scenes;
+﻿using Level_Editor.Scenes;
 using Level_Editor.Utils;
 
 EditorWindow editor = new();

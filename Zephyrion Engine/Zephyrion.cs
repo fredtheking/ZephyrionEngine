@@ -5,23 +5,16 @@ using ZephyrionEngine.Settings;
 
 namespace ZephyrionEngine;
 
-public static class ZephyrionGame
+public static class Zephyrion
 {
   public static ManagersDirectory Managers { get; } = new();
   public static SettingsDirectory Settings { get; } = new();
   public static PoolsDirectory Pools { get; } = new();
   public static MainPipeline Pipeline { get; } = new();
 
-  public static void Setup(WindowSetting? window = null)
+  public static void Setup(WindowSettings? window = null)
   {
-    Settings.Window = Managers.Window.Settings = window ?? new WindowSetting();
-  }
-
-  private static void Init()
-  {
-    Pipeline.Setup();
-    Pipeline.Initialisation();
-    Pipeline.Begin();
+    Settings.Window = window ?? new WindowSettings();
   }
   
   public static void Run()
@@ -41,6 +34,8 @@ public static class ZephyrionGame
 
       Managers.Window.Run();
       Managers.Window.Close();
+      
+      Managers.Debug.Separator(ConsoleColor.Green, "Terminating program. See you soon!");
     }
     else
     {

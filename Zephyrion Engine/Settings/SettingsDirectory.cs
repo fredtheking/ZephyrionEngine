@@ -2,5 +2,5 @@
 
 public class SettingsDirectory
 {
-  public WindowSetting Window { get; set; }
+  public WindowSettings Window { get; set; }
 }

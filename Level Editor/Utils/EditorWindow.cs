@@ -35,11 +35,21 @@ public class EditorWindow
     if (MainLoopEvents == null)
       throw new Exception("MainLoopEvents is null. Consider adding it.");
     
-    Raylib.SetConfigFlags(ConfigFlags.ResizableWindow | ConfigFlags.AlwaysRunWindow);
+    Raylib.SetConfigFlags(ConfigFlags.ResizableWindow | ConfigFlags.AlwaysRunWindow | ConfigFlags.TransparentWindow);
     Raylib.InitWindow(1360, 1024, "Level Editor - ...");
     Raylib.InitAudioDevice();
     rlImGui.Setup(enableDocking: true);
     ChangeScene(EditorSceneNames.Menu);
+    
+    ImGui.CreateContext();
+    var io = ImGui.GetIO();
+
+    io.ConfigFlags |= ImGuiConfigFlags.DockingEnable;
+    io.ConfigFlags |= ImGuiConfigFlags.ViewportsEnable;
+    
+    ImGui.SetCurrentContext(io.Ctx);
+    
+    Rlgl.DrawRenderBatchActive();
 
     while (!Raylib.WindowShouldClose())
     {
@@ -61,7 +71,7 @@ public class EditorWindow
       #endif
       
       Raylib.BeginDrawing();
-      Raylib.ClearBackground(Color.DarkGray);
+      Raylib.ClearBackground(new Color(0, 0, 0, 123));
       rlImGui.Begin();
       
       MainLoopEvents[currentScene].Invoke(this);

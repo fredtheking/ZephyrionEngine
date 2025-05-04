@@ -6,8 +6,16 @@ public class NodePool
 {
   public List<Node> All = [];
 
-  public void Register(string name, params Node[] children)
+  public Node Register(string name, params Node[] children)
   {
-    All.Add(new(name, children));
+    Node newNode = new Node(name, children);
+    All.Add(newNode);
+    return newNode;
+  }
+
+  public Node? GetByName(string name)
+  {
+    Node? node = All.Find(x => x.Name == name);
+    return node;
   }
 }

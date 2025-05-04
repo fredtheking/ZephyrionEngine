@@ -7,31 +7,32 @@ public class MainPipeline : ISetup, IUpdateable, IRenderable
 {
   public void Setup()
   {
-    ZephyrionGame.Pools.Node.Register("Root");
-    ZephyrionGame.Managers.Setup();
+    Zephyrion.Pools.Node.Register("Root");
+    Zephyrion.Managers.Setup();
   }
 
   public void Initialisation()
   {
-    ZephyrionGame.Managers.Initialisation();
+    Zephyrion.Managers.Initialisation();
   }
 
   public void Begin()
   {
-    ZephyrionGame.Managers.Begin();
+    Zephyrion.Managers.Begin();
   }
 
   public void Update()
   {
-    ZephyrionGame.Managers.Update();
+    Zephyrion.Managers.Update();
   }
 
   public void Render()
   {
     Raylib.BeginDrawing();
-    Raylib.ClearBackground(ZephyrionGame.Settings.Window.BackgroundColor);
+    Raylib.ClearBackground(Zephyrion.Settings.Window.BackgroundColor);
     
-    ZephyrionGame.Managers.Render();
+    Zephyrion.Managers.Render();
+    Raylib.DrawFPS(10, 10);
     
     Raylib.EndDrawing();
   }
