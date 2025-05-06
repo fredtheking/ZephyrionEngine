@@ -13,9 +13,9 @@ public class NodePool
     return newNode;
   }
 
-  public Node? GetByName(string name)
-  {
-    Node? node = All.Find(x => x.Name == name);
-    return node;
-  }
+  public Node? GetByName(string name) =>
+    All.Find(x => x.Name == name);
+  
+  public Node? GetByUuid(string uuid) =>
+    All.Find(x => x.Uuid == uuid);
 }

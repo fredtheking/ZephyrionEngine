@@ -28,11 +28,15 @@ public enum NodeFlags
   /// </summary>
   HasPhysics = 1 << 4,
   /// <summary>
+  /// Ability to behave as root node (convenient as it declares a starting point for calling all internal methods)
+  /// </summary>
+  IsRoot = 1 << 5,
+  /// <summary>
   /// Ability to behave as scene node (convenient for scene manager for changing scenes)
   /// </summary>
-  Scene = 1 << 5,
+  IsScene = 1 << 6,
   /// <summary>
   /// Ability to be automatically destroyed when leaving current scene (cleaning from pool entirely)
   /// </summary>
-  DestroyOnLeave = 1 << 6,
+  DestroyOnLeave = 1 << 7,
 }

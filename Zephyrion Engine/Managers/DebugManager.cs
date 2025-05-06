@@ -7,11 +7,22 @@ public class DebugManager
   public bool ShowBorders { get; set; } = true;
   public bool TurnedOn { get; set; } = true;
   public bool Changed { get; set; } = true;
+  private bool _consoleIsInvalid;
   
   public void Separator(ConsoleColor fgColor = ConsoleColor.Magenta, string message = "", char sign = '=') {
     string space = " ";
     if (message is "") space = "";
-    string prepostfix = new(sign, (Console.WindowWidth - message.Length - space.Length * 2) / 2);
+    string prepostfix = new(sign, 3);
+    try
+    {
+      if (!_consoleIsInvalid)
+        prepostfix = new(sign, (Console.WindowWidth - message.Length - space.Length * 2) / 2);
+    }
+    catch (Exception)
+    {
+      Warning("Your console/terminal is invalid. 'Separator' debug messages will look shorter as seen below.");
+      _consoleIsInvalid = true;
+    }
     
     Console.ForegroundColor = fgColor;
     Console.Write(prepostfix + space + message + space + prepostfix);
@@ -21,7 +32,7 @@ public class DebugManager
   
   public void Separator(string message, char sign = '=') => Separator(ConsoleColor.Magenta, message, sign);
   
-  public void Print(string prefix, ConsoleColor? backColor, ConsoleColor foreColor, string message, UuidIdentifier? component = null)
+  internal void Print(string prefix, string message, ConsoleColor foreColor, ConsoleColor? backColor = null, UuidIdentifier? component = null)
   {
     if (backColor is not null) Console.BackgroundColor = (ConsoleColor)backColor;
     Console.ForegroundColor = foreColor;
@@ -31,16 +42,16 @@ public class DebugManager
   }
   
   public void Information(string message) =>
-    Print("info", null, ConsoleColor.White, message);
+    Print("info", message, ConsoleColor.White);
  
   public void Warning(string message) =>
-    Print("warn", null, ConsoleColor.Yellow, message);
+    Print("warn", message, ConsoleColor.Yellow);
  
   public void Error(string message) =>
-    Print("error", null, ConsoleColor.Red, message);
+    Print("error", message, ConsoleColor.Red);
  
   public void Critical(string message) =>
-    Print("crit", ConsoleColor.Red, ConsoleColor.Black, message);
+    Print("crit", message, ConsoleColor.Black, ConsoleColor.Red);
   
   public void Toggle() {
     TurnedOn = !TurnedOn;

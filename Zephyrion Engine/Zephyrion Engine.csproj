@@ -13,4 +13,9 @@
       <PackageReference Include="rlImgui-cs" Version="3.1.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Components\" />
+      <Folder Include="Utils\Templates\" />
+    </ItemGroup>
+
 </Project>

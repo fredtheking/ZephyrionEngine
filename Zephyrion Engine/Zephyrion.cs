@@ -2,6 +2,7 @@
 using ZephyrionEngine.Managers;
 using ZephyrionEngine.Pools;
 using ZephyrionEngine.Settings;
+using ZephyrionEngine.Utils.Etc;
 
 namespace ZephyrionEngine;
 
@@ -9,7 +10,6 @@ public static class Zephyrion
 {
   public static ManagersDirectory Managers { get; } = new();
   public static SettingsDirectory Settings { get; } = new();
-  public static PoolsDirectory Pools { get; } = new();
   public static MainPipeline Pipeline { get; } = new();
 
   public static void Setup(WindowSettings? window = null)
@@ -21,21 +21,24 @@ public static class Zephyrion
   {
     if (Managers.SystemSetup.CheckOverallSetup())
     {
-      Managers.Debug.Separator(ConsoleColor.DarkYellow, "Setting up Zephyrion engine...");
+      Managers.Debug.Separator(ConsoleColor.DarkYellow, "Hello, world! Setting engine up.");
       
       Pipeline.Setup();
       
-      Managers.Debug.Separator(ConsoleColor.Yellow, "Engine started! Opening window...");
+      Managers.Debug.Separator(ConsoleColor.Yellow, "Engine started. Booting up initialisation.");
       
       Pipeline.Initialisation();
       Pipeline.Begin();
       
-      Managers.Debug.Separator(ConsoleColor.Green, "Initialisation ended. Enjoy!");
+      Managers.Debug.Separator(ConsoleColor.Green, "Initialisation ended. Runtime process started.");
 
       Managers.Window.Run();
+      
+      Managers.Debug.Separator(ConsoleColor.DarkRed, "Terminating program...");
+      
       Managers.Window.Close();
       
-      Managers.Debug.Separator(ConsoleColor.Green, "Terminating program. See you soon!");
+      Managers.Debug.Separator(ConsoleColor.DarkYellow, "Goodbye, world.");
     }
     else
     {

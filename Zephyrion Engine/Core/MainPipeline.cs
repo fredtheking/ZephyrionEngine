@@ -7,7 +7,7 @@ public class MainPipeline : ISetup, IUpdateable, IRenderable
 {
   public void Setup()
   {
-    Zephyrion.Pools.Node.Register("Root");
+    Zephyrion.Managers.Pools.Node.Register("Root");
     Zephyrion.Managers.Setup();
   }
 

@@ -18,4 +18,16 @@ public class UuidIdentifier
     Uuid = Guid.NewGuid().ToString();
     ShortUuid = Uuid[new Range(0, UUID_LENGTH)] + ".." + Uuid[new Range(Uuid.Length - UUID_LENGTH, Uuid.Length)];
   }
+  
+  public void LogInformation(string message) =>
+    Zephyrion.Managers.Debug.Print("info", message, ConsoleColor.White, null, this);
+ 
+  public void LogWarning(string message) =>
+    Zephyrion.Managers.Debug.Print("warn", message, ConsoleColor.Yellow, null, this);
+ 
+  public void LogError(string message) =>
+    Zephyrion.Managers.Debug.Print("error", message, ConsoleColor.Red, null, this);
+ 
+  public void LogCritical(string message) =>
+    Zephyrion.Managers.Debug.Print("crit", message, ConsoleColor.Black, ConsoleColor.Red, this);
 }

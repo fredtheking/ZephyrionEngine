@@ -5,7 +5,7 @@ public interface ISetup
   /// <summary>
   /// Called before main initialisation. Not recommended to override as its purpose is to set up system resources.
   /// </summary>
-  public void Setup();
+  internal void Setup();
 
   /// <summary>
   /// Called after constructors initialisations.

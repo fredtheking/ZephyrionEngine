@@ -10,6 +10,7 @@ public class ManagersDirectory : ISetup, IUpdateable, IRenderable
   public PoolsManager Pools { get; } = new();
   public SceneManager Scene { get; } = new();
   public ProjectManager Project { get; } = new();
+  internal PendingChangesManager PendingChanges { get; } = new();
   
   public void Setup()
   {

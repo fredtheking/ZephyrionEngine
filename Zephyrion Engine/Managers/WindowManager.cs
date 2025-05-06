@@ -20,6 +20,7 @@ public class WindowManager : IRun, ISetup, IUpdateable
     while (!Raylib.WindowShouldClose())
     {
       Zephyrion.Pipeline.Update();
+      Zephyrion.Managers.PendingChanges.Apply();
       Zephyrion.Pipeline.Render();
     }
   }
