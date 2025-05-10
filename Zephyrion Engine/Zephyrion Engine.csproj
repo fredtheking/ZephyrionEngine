@@ -15,7 +15,6 @@
 
     <ItemGroup>
       <Folder Include="Components\" />
-      <Folder Include="Utils\Templates\" />
     </ItemGroup>
 
 </Project>

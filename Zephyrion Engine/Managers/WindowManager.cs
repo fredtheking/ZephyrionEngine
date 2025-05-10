@@ -2,11 +2,12 @@ using System.ComponentModel;
 using System.Numerics;
 using Raylib_cs;
 using ZephyrionEngine.Settings;
+using ZephyrionEngine.Utils.Etc;
 using ZephyrionEngine.Utils.Interfaces;
 
 namespace ZephyrionEngine.Managers;
 
-public class WindowManager : IRun, ISetup, IUpdateable
+public class WindowManager : IRun, IClose, ISetup, IUpdateable
 {
   public event Action? Resized;
   public event Action? Focused;
@@ -19,25 +20,25 @@ public class WindowManager : IRun, ISetup, IUpdateable
   {
     while (!Raylib.WindowShouldClose())
     {
-      Zephyrion.Pipeline.Update();
-      Zephyrion.Managers.PendingChanges.Apply();
-      Zephyrion.Pipeline.Render();
+      ZE.P.Update();
+      ZE.M.PND.Apply();
+      ZE.P.Render();
     }
   }
 
   public void Close()
   {
-    if (Zephyrion.Settings.Window.SoundOn) Raylib.CloseAudioDevice();
+    if (ZE.S.W.SoundOn) Raylib.CloseAudioDevice();
     Raylib.CloseWindow();
   }
 
   public void Setup()
   {
-    WindowSettings window = Zephyrion.Settings.Window;
+    WindowSettings window = ZE.S.W;
     
     Raylib.SetConfigFlags(window.Flags);
     Raylib.InitWindow((int)window.Size.X, (int)window.Size.Y, window.Title);
-    Raylib.SetTargetFPS(Zephyrion.Settings.Window.Fps);
+    Raylib.SetTargetFPS(window.Fps);
     if (window.SoundOn) Raylib.InitAudioDevice();
   }
 

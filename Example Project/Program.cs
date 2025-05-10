@@ -1,12 +1,14 @@
 ﻿using Raylib_cs;
 using ZephyrionEngine;
 using ZephyrionEngine.Settings;
+using ZephyrionEngine.Utils.Templates;
 
 Zephyrion.Setup(new WindowSettings.Builder()
-  //.SetFps(-1)
-  .SetFlags(ConfigFlags.AlwaysRunWindow)
+  .SetFps(-1)
+  .SetFlags(ConfigFlags.AlwaysRunWindow | ConfigFlags.ResizableWindow)
   .Build());
 
-Zephyrion.Pools.Node.Register("HelloWorldObject");
+var HelloObject = Zephyrion.Managers.Registry.Node.Register("HelloWorldObject");
+HelloObject.AddComponent(new ComponentTemplate());
 
 Zephyrion.Run();

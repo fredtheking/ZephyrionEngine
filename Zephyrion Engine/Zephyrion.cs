@@ -32,11 +32,11 @@ public static class Zephyrion
       
       Managers.Debug.Separator(ConsoleColor.Green, "Initialisation ended. Runtime process started.");
 
-      Managers.Window.Run();
+      Pipeline.Run();
       
       Managers.Debug.Separator(ConsoleColor.DarkRed, "Terminating program...");
       
-      Managers.Window.Close();
+      Pipeline.Close();
       
       Managers.Debug.Separator(ConsoleColor.DarkYellow, "Goodbye, world.");
     }

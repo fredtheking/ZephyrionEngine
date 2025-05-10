@@ -32,11 +32,11 @@ public class DebugManager
   
   public void Separator(string message, char sign = '=') => Separator(ConsoleColor.Magenta, message, sign);
   
-  internal void Print(string prefix, string message, ConsoleColor foreColor, ConsoleColor? backColor = null, UuidIdentifier? component = null)
+  internal void Print(string prefix, string message, ConsoleColor foreColor, ConsoleColor? backColor = null, UuidIdentifier? speaker = null)
   {
     if (backColor is not null) Console.BackgroundColor = (ConsoleColor)backColor;
     Console.ForegroundColor = foreColor;
-    Console.Write($"{prefix.ToUpper()}{(component is not null ? $" [{component.ShortUuid}]": "")}: {message}");
+    Console.Write($"{prefix.ToUpper()}{(speaker is not null ? $" [{speaker.ShortUuid}]": "")}: {message}");
     Console.ResetColor();
     Console.WriteLine();
   }

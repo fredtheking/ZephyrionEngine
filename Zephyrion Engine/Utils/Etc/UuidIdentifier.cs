@@ -1,6 +1,6 @@
 namespace ZephyrionEngine.Utils.Etc;
 
-public class UuidIdentifier
+public abstract class UuidIdentifier
 {
   /// <summary>
   /// Simple UUID. Example: 9a5242b7-0abc-4930-a118-8ddfb5e6a5b4
@@ -20,14 +20,14 @@ public class UuidIdentifier
   }
   
   public void LogInformation(string message) =>
-    Zephyrion.Managers.Debug.Print("info", message, ConsoleColor.White, null, this);
+    ZE.M.D.Print("info", message, ConsoleColor.White, null, this);
  
   public void LogWarning(string message) =>
-    Zephyrion.Managers.Debug.Print("warn", message, ConsoleColor.Yellow, null, this);
+    ZE.M.D.Print("warn", message, ConsoleColor.Yellow, null, this);
  
   public void LogError(string message) =>
-    Zephyrion.Managers.Debug.Print("error", message, ConsoleColor.Red, null, this);
+    ZE.M.D.Print("error", message, ConsoleColor.Red, null, this);
  
   public void LogCritical(string message) =>
-    Zephyrion.Managers.Debug.Print("crit", message, ConsoleColor.Black, ConsoleColor.Red, this);
+    ZE.M.D.Print("crit", message, ConsoleColor.Black, ConsoleColor.Red, this);
 }

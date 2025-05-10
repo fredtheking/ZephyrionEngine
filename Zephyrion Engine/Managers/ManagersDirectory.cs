@@ -7,17 +7,17 @@ public class ManagersDirectory : ISetup, IUpdateable, IRenderable
   public DebugManager Debug { get; } = new();
   public SystemSetupManager SystemSetup { get; } = new();
   public WindowManager Window { get; } = new();
-  public PoolsManager Pools { get; } = new();
+  public RegistryManager Registry { get; } = new();
   public SceneManager Scene { get; } = new();
   public ProjectManager Project { get; } = new();
   internal PendingChangesManager PendingChanges { get; } = new();
   
   public void Setup()
-  {
+  { 
     Window.Setup();
     Scene.Setup();
     
-    Pools.Setup();
+    Registry.Setup();
   }
 
   public void Initialisation()
@@ -25,7 +25,7 @@ public class ManagersDirectory : ISetup, IUpdateable, IRenderable
     Window.Initialisation();
     Scene.Initialisation();
     
-    Pools.Initialisation();
+    Registry.Initialisation();
   }
 
   public void Begin()
@@ -33,7 +33,7 @@ public class ManagersDirectory : ISetup, IUpdateable, IRenderable
     Window.Begin();
     Scene.Begin();
     
-    Pools.Begin();
+    Registry.Begin();
   }
 
   public void Update()
@@ -41,11 +41,11 @@ public class ManagersDirectory : ISetup, IUpdateable, IRenderable
     Window.Update();
     Scene.Update();
     
-    Pools.Update();
+    Registry.Update();
   }
 
   public void Render()
   {
-    Pools.Render();
+    Registry.Render();
   }
 }

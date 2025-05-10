@@ -1,37 +1,48 @@
 using Raylib_cs;
+using ZephyrionEngine.Utils.Etc;
 using ZephyrionEngine.Utils.Interfaces;
 
 namespace ZephyrionEngine.Core;
 
-public class MainPipeline : ISetup, IUpdateable, IRenderable
+public class MainPipeline : ISetup, IUpdateable, IRenderable, IRun, IClose
 {
   public void Setup()
   {
-    Zephyrion.Managers.Pools.Node.Register("Root");
-    Zephyrion.Managers.Setup();
+    ZE.M.R.Node.Register("Root");
+    ZE.M.Setup();
   }
 
   public void Initialisation()
   {
-    Zephyrion.Managers.Initialisation();
+    ZE.M.Initialisation();
   }
 
   public void Begin()
   {
-    Zephyrion.Managers.Begin();
+    ZE.M.Begin();
+  }
+  
+  public void Run()
+  {
+    ZE.M.W.Run();
+  }
+  
+  public void Close()
+  {
+    ZE.M.W.Close();
   }
 
   public void Update()
   {
-    Zephyrion.Managers.Update();
+    ZE.M.Update();
   }
 
   public void Render()
   {
     Raylib.BeginDrawing();
-    Raylib.ClearBackground(Zephyrion.Settings.Window.BackgroundColor);
+    Raylib.ClearBackground(ZE.S.W.BackgroundColor);
     
-    Zephyrion.Managers.Render();
+    ZE.M.Render();
     Raylib.DrawFPS(10, 10);
     
     Raylib.EndDrawing();

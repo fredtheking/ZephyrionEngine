@@ -3,7 +3,7 @@ namespace ZephyrionEngine.Utils.Interfaces;
 public interface ISetup
 {
   /// <summary>
-  /// Called before main initialisation. Not recommended to override as its purpose is to set up system resources.
+  /// Called before main initialisation. Not recommended to override as its mostly system setup, and you can easily break something.
   /// </summary>
   internal void Setup();
 
