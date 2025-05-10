@@ -22,6 +22,7 @@ public class WindowSettings
     get => _fps;
     set
     {
+      if (_fps == value) return;
       _fps = value;
       Raylib.SetTargetFPS(_fps);
     }

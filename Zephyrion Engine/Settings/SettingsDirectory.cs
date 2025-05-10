@@ -2,5 +2,6 @@
 
 public class SettingsDirectory
 {
-  public WindowSettings Window { get; set; }
+  public WindowSettings Window { get; set; } = null!;
+  internal SettingsDirectory() { }
 }

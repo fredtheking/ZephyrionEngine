@@ -16,7 +16,7 @@ public abstract class UuidIdentifier
   public UuidIdentifier()
   {
     Uuid = Guid.NewGuid().ToString();
-    ShortUuid = Uuid[new Range(0, UUID_LENGTH)] + ".." + Uuid[new Range(Uuid.Length - UUID_LENGTH, Uuid.Length)];
+    ShortUuid = Uuid[..UUID_LENGTH] + ".." + Uuid[^UUID_LENGTH..];
   }
   
   public void LogInformation(string message) =>

@@ -7,6 +7,8 @@ public class RegistryManager : ISetup, IUpdateable, IRenderable
 {
   public NodePool Node = new();
   
+  internal RegistryManager() { }
+  
   public void Setup()
   {
     

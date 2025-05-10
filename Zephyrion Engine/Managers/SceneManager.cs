@@ -8,6 +8,8 @@ public class SceneManager : ISetup, IUpdateable, ISceneable
   public Node Current { get; private set; }
   public bool Changed { get; private set; }
   
+  internal SceneManager() { }
+  
   public void Setup()
   {
     

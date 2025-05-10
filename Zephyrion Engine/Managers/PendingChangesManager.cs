@@ -3,6 +3,8 @@ namespace ZephyrionEngine.Managers;
 public class PendingChangesManager
 {
   private List<Action> All { get; } = [];
+  
+  internal PendingChangesManager() { }
 
   public void Add(Action action) =>
     All.Add(action);

@@ -6,9 +6,11 @@ namespace ZephyrionEngine.Core;
 
 public class MainPipeline : ISetup, IUpdateable, IRenderable, IRun, IClose
 {
+  internal MainPipeline() { }
+
   public void Setup()
   {
-    ZE.M.R.Node.Register("Root");
+    ZE.M.R.Node.Register("Root", [], []);
     ZE.M.Setup();
   }
 

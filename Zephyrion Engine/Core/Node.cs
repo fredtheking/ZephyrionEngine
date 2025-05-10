@@ -21,9 +21,10 @@ public class Node : UuidIdentifier, IInitialised, ISetup, IUpdateable, IRenderab
   public bool HasComponent(ComponentTemplate component) => Components.Contains(component);
   public void AddComponent(ComponentTemplate component) => ZE.M.PND.Add(() => Components.Add(component));
   
-  public Node(string name, Node[] children)
+  public Node(string name, ComponentTemplate[] components, Node[] children)
   {
     Name = name;
+    Components = components.ToList();
     Children = children.ToList();
     
     foreach (Node child in Children)

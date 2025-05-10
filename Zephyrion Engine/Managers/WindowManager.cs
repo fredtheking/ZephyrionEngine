@@ -16,6 +16,8 @@ public class WindowManager : IRun, IClose, ISetup, IUpdateable
   public event Action? Maximized;
   public event Action? Minimized;
   
+  internal WindowManager() { }
+  
   public void Run()
   {
     while (!Raylib.WindowShouldClose())

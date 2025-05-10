@@ -1,14 +1,19 @@
-﻿using Raylib_cs;
+﻿using System.Numerics;
+using Raylib_cs;
 using ZephyrionEngine;
+using ZephyrionEngine.Components;
 using ZephyrionEngine.Settings;
-using ZephyrionEngine.Utils.Templates;
+using ZephyrionEngine.Utils.Etc;
 
 Zephyrion.Setup(new WindowSettings.Builder()
-  .SetFps(-1)
   .SetFlags(ConfigFlags.AlwaysRunWindow | ConfigFlags.ResizableWindow)
-  .Build());
+  .SetFps(-1)
+  .Build()
+);
 
-var HelloObject = Zephyrion.Managers.Registry.Node.Register("HelloWorldObject");
-HelloObject.AddComponent(new ComponentTemplate());
+var HelloObject = ZE.M.R.Node.Register("HelloObject", [
+  new CTransform(new Vector2(100, 200)),
+], []);
+
 
 Zephyrion.Run();

@@ -3,43 +3,20 @@ using ZephyrionEngine.Utils.Interfaces;
 
 namespace ZephyrionEngine.Utils.Templates;
 
-public class ComponentTemplate : UuidIdentifier, IInitialised, ISetup, ISceneable, IUpdateable, IRenderable
+public abstract class ComponentTemplate : UuidIdentifier, IInitialised, ISetup, ISceneable, IUpdateable, IRenderable
 {
   public bool Initialised { get; set; }
-  
-  
-  public void Setup()
+  public void InitOnce(Action action)
   {
-    throw new NotImplementedException();
+    action();
+    Initialised = true;
   }
 
-  public void Initialisation()
-  {
-    throw new NotImplementedException();
-  }
-
-  public void Begin()
-  {
-    throw new NotImplementedException();
-  }
-
-  public void Enter()
-  {
-    throw new NotImplementedException();
-  }
-
-  public void Leave()
-  {
-    throw new NotImplementedException();
-  }
-
-  public void Update()
-  {
-    throw new NotImplementedException();
-  }
-
-  public void Render()
-  {
-    throw new NotImplementedException();
-  }
+  public virtual void Setup() { }
+  public virtual void Initialisation() => InitOnce(() => { });
+  public virtual void Begin() { }
+  public virtual void Enter() { }
+  public virtual void Leave() { }
+  public virtual void Update() { }
+  public virtual void Render() { }
 }

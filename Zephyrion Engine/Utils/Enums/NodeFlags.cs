@@ -10,19 +10,19 @@ public enum NodeFlags
   /// <summary>
   /// Ability to call render method
   /// </summary>
-  Renderable = 1 << 0,
+  IsRenderable = 1 << 0,
   /// <summary>
   /// Ability to call update method
   /// </summary>
-  Updateable = 1 << 1,
+  IsUpdateable = 1 << 1,
   /// <summary>
-  /// Ability to save states between scenes (all internal variables and stuff)
+  /// /// Keeps internal state between scene changes (e.g., variables, flags, etc.)
   /// </summary>
-  Persistent = 1 << 2,
+  IsPersistent = 1 << 2,
   /// <summary>
   /// Whether it takes part in collision party (set automatically when adding any collision component)
   /// </summary>
-  HasCollision = 1 << 3,
+  HasCollisions = 1 << 3,
   /// <summary>
   /// Whether it takes part in physics party (set automatically when adding any physics-related component)
   /// </summary>
@@ -36,7 +36,11 @@ public enum NodeFlags
   /// </summary>
   IsScene = 1 << 6,
   /// <summary>
+  /// Means that game object has no "Transform" component (CTransform)
+  /// </summary>
+  NonSpatial = 1 << 7,
+  /// <summary>
   /// Ability to be automatically destroyed when leaving current scene (cleaning from pool entirely)
   /// </summary>
-  DestroyOnLeave = 1 << 7,
+  DestroyOnLeave = 1 << 8,
 }

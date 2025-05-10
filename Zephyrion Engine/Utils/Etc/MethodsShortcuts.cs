@@ -20,10 +20,6 @@ public static class ZE
     /// </summary>
     public static DebugManager D { get; } = Zephyrion.Managers.Debug;
     /// <summary>
-    /// Represents word "SystemSetup"
-    /// </summary>
-    public static SystemSetupManager SYS { get; } = Zephyrion.Managers.SystemSetup;
-    /// <summary>
     /// Represents word "Window"
     /// </summary>
     public static WindowManager W { get; } = Zephyrion.Managers.Window;
@@ -39,6 +35,10 @@ public static class ZE
     /// Represents word "Project"
     /// </summary>
     public static ProjectManager PRJ { get; } = Zephyrion.Managers.Project;
+    /// <summary>
+    /// Represents word "SystemSetup"
+    /// </summary>
+    internal static SystemSetupManager SYS { get; } = Zephyrion.Managers.SystemSetup;
     /// <summary>
     /// Represents word "PendingChanges"
     /// </summary>

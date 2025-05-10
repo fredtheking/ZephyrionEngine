@@ -5,12 +5,14 @@ namespace ZephyrionEngine.Managers;
 public class ManagersDirectory : ISetup, IUpdateable, IRenderable
 {
   public DebugManager Debug { get; } = new();
-  public SystemSetupManager SystemSetup { get; } = new();
   public WindowManager Window { get; } = new();
   public RegistryManager Registry { get; } = new();
   public SceneManager Scene { get; } = new();
   public ProjectManager Project { get; } = new();
+  internal SystemSetupManager SystemSetup { get; } = new();
   internal PendingChangesManager PendingChanges { get; } = new();
+
+  internal ManagersDirectory() { }
   
   public void Setup()
   { 
