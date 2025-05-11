@@ -1,4 +1,5 @@
 using Raylib_cs;
+using ZephyrionEngine.Utils.Enums;
 using ZephyrionEngine.Utils.Etc;
 using ZephyrionEngine.Utils.Interfaces;
 
@@ -10,7 +11,7 @@ public class MainPipeline : ISetup, IUpdateable, IRenderable, IRun, IClose
 
   public void Setup()
   {
-    ZE.M.R.Node.Register("Root", [], []);
+    ZE.M.R.Node.Root = ZE.M.R.Node.Register("Root", [], [], NodeFlags.IsRoot | NodeFlags.IsUpdateable | NodeFlags.IsRenderable | NodeFlags.IsPersistent);
     ZE.M.Setup();
   }
 

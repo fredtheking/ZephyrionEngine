@@ -24,6 +24,7 @@ public static class Zephyrion
       Managers.Debug.Separator(ConsoleColor.DarkYellow, "Hello, world! Setting engine up.");
       
       Pipeline.Setup();
+      Managers.PendingChanges.Apply();
       
       Managers.Debug.Separator(ConsoleColor.Yellow, "Engine started. Booting up initialisation.");
       

@@ -1,4 +1,5 @@
 using ZephyrionEngine.Core;
+using ZephyrionEngine.Utils.Enums;
 using ZephyrionEngine.Utils.Etc;
 using ZephyrionEngine.Utils.Templates;
 
@@ -6,13 +7,14 @@ namespace ZephyrionEngine.Pools;
 
 public class NodePool
 {
-  public List<Node> All = [];
+  public List<Node> All { get; internal set; } = [];
+  public Node Root { get; internal set; }
 
   internal NodePool() { }
 
-  public Node Register(string name, ComponentTemplate[] components, Node[] children)
+  public Node Register(string name, Node[] children, ComponentTemplate[] components, NodeFlags? flags = null)
   {
-    Node newNode = new Node(name, components, children);
+    Node newNode = new Node(name, children, components, flags);
     All.Add(newNode);
     return newNode;
   }

@@ -1,3 +1,5 @@
+using ZephyrionEngine.Utils.Interfaces;
+
 namespace ZephyrionEngine.Utils.Etc;
 
 public abstract class UuidIdentifier

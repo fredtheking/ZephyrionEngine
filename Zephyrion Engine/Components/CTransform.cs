@@ -15,9 +15,4 @@ public class CTransform : ComponentTemplate
     Rotation = rotation ?? 0;
     Scale = scale ?? Vector2.One;
   }
-  
-  public override void Initialisation() => InitOnce(() =>
-  {
-    
-  });
 }

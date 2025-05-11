@@ -1,7 +1,5 @@
-public class SystemSetupManager
+internal class SystemSetupManager
 {
-  internal SystemSetupManager() { }
-  
   /// <summary>
   /// Whether the registry setup was successful.
   /// </summary>
