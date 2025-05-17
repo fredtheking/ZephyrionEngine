@@ -1,3 +1,4 @@
+using ZephyrionEngine.Components;
 using ZephyrionEngine.Utils.Enums;
 using ZephyrionEngine.Utils.Etc;
 using ZephyrionEngine.Utils.Interfaces;
@@ -54,15 +55,55 @@ public class Node : UuidIdentifier, IInitialised, ISetup, IUpdateable, IRenderab
       ZE.M.PND.Add(() => Materials.Remove(material));
   }
 
-  public void AddFlag(NodeFlags flag) => ((IBinaryFlags<NodeFlags>)this).AddFlag(flag);
   public bool HasFlag(NodeFlags flag) => ((IBinaryFlags<NodeFlags>)this).HasFlag(flag);
+  public void AddFlag(NodeFlags flag) => ((IBinaryFlags<NodeFlags>)this).AddFlag(flag);
   public void RemoveFlag(NodeFlags flag) => ((IBinaryFlags<NodeFlags>)this).RemoveFlag(flag);
 
+  public bool HasChild(Node node) => Children.Contains(node);
+  public void AddChildren(params Node[] nodes)
+  {
+    foreach (Node node in nodes)
+    {
+      Children.Add(node);
+      node.Parents.Add(this);
+    }
+  }
+  public void RemoveChildren(params Node[] nodes)
+  {
+    foreach (Node node in nodes)
+    {
+      node.Parents.Remove(this);
+      Children.Remove(node);
+    }
+  }
+  public bool HasParent(Node node) => Parents.Contains(node);
+  public void AddParents(params Node[] nodes)
+  {
+    foreach (Node node in nodes)
+    {
+      Parents.Add(node);
+      node.Children.Add(this);
+    }
+  }
+  public void RemoveParents(params Node[] nodes)
+  {
+    foreach (Node node in nodes)
+    {
+      node.Children.Remove(this);
+      Parents.Remove(node);
+    }
+  }
+
   
-  
+
   public void Setup()
   {
-    
+    #region NodeFlagsSetup
+
+    if (!Components.Exists(c => c is CTransform)) 
+      AddFlag(NodeFlags.NonSpatial);
+
+    #endregion
   }
   public void Initialisation()
   {

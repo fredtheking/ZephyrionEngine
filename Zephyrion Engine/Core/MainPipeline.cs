@@ -11,7 +11,6 @@ public class MainPipeline : ISetup, IUpdateable, IRenderable, IRun, IClose
 
   public void Setup()
   {
-    ZE.M.R.Node.Root = ZE.M.R.Node.Register("Root", [], [], NodeFlags.IsRoot | NodeFlags.IsUpdateable | NodeFlags.IsRenderable | NodeFlags.IsPersistent);
     ZE.M.Setup();
   }
 

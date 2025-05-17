@@ -4,6 +4,7 @@ using ZephyrionEngine;
 using ZephyrionEngine.Components;
 using ZephyrionEngine.Core;
 using ZephyrionEngine.Settings;
+using ZephyrionEngine.Utils.Enums;
 using ZephyrionEngine.Utils.Etc;
 
 Zephyrion.Setup(new WindowSettings.Builder()

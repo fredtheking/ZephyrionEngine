@@ -4,7 +4,7 @@ namespace ZephyrionEngine.Utils.Enums;
 public enum NodeFlags : ulong
 {
   /// <summary>
-  /// Ability to behave as root node (convenient as it declares a starting point for calling all internal methods)
+  /// Ability to behave as root node (declared as starting point for tree update)
   /// </summary>
   IsRoot = 1UL << 0,
   /// <summary>
@@ -16,23 +16,23 @@ public enum NodeFlags : ulong
   /// </summary>
   IsRenderable = 1UL << 2,
   /// <summary>
-  /// /// Keeps internal state between scene changes (e.g., variables, flags, etc.)
+  /// Keeps internal state between scene changes (e.g., variables, flags, etc.)
   /// </summary>
   IsPersistent = 1UL << 3,
   /// <summary>
-  /// Ability to behave as scene node (convenient for scene manager for changing scenes)
+  /// Ability to behave as scene node (for scene manager to change scenes)
   /// </summary>
   IsScene = 1UL << 4,
   /// <summary>
-  /// Whether it takes part in collision party (set automatically when adding any collision component)
+  /// Ability to take part in collision party (set automatically when adding any collision component)
   /// </summary>
   HasCollisions = 1UL << 5,
   /// <summary>
-  /// Whether it takes part in physics party (set automatically when adding any physics-related component)
+  /// Ability to take part in physics party (set automatically when adding any physics-related component)
   /// </summary>
   HasPhysics = 1UL << 6,
   /// <summary>
-  /// Means that game object has no "Transform" component (CTransform)
+  /// Tag to show that object has no "Transform" component (CTransform)
   /// </summary>
   NonSpatial = 1UL << 7,
   /// <summary>

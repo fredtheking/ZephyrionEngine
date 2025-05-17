@@ -8,7 +8,7 @@ namespace ZephyrionEngine.Pools;
 public class NodePool
 {
   public List<Node> All { get; internal set; } = [];
-  public Node Root { get; internal set; }
+  public Node Root { get; internal set; } = new("Root", [], [], NodeFlags.IsRoot | NodeFlags.IsUpdateable | NodeFlags.IsRenderable | NodeFlags.IsPersistent);
 
   internal NodePool() { }
 
