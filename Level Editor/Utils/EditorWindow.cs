@@ -16,6 +16,8 @@ public class EditorWindow
   public Action<EditorWindow>? Global;
   public Dictionary<EditorSceneNames, Action<EditorWindow>>? MainLoopEvents;
   public EditorSceneNames currentScene;
+  public RenderTexture2D renderTexture;
+  public List<Action> LateActions = [];
   
   public bool debug;
   public Vector2 windowSize;
@@ -35,10 +37,11 @@ public class EditorWindow
     if (MainLoopEvents == null)
       throw new Exception("MainLoopEvents is null. Consider adding it.");
     
-    Raylib.SetConfigFlags(ConfigFlags.ResizableWindow | ConfigFlags.AlwaysRunWindow | ConfigFlags.TransparentWindow);
-    Raylib.InitWindow(1360, 1024, "Level Editor - ...");
+    Raylib.SetConfigFlags(ConfigFlags.ResizableWindow | ConfigFlags.AlwaysRunWindow);
+    Raylib.InitWindow(1360, 1024, "Zephyrion Level Editor - ...");
     Raylib.InitAudioDevice();
     rlImGui.Setup(enableDocking: true);
+    renderTexture = Raylib.LoadRenderTexture(1920, 1080);
     ChangeScene(EditorSceneNames.Menu);
     
     ImGui.CreateContext();
@@ -72,6 +75,7 @@ public class EditorWindow
       
       Raylib.BeginDrawing();
       Raylib.ClearBackground(new Color(0, 0, 0, 123));
+      ViewportUpdate();
       rlImGui.Begin();
       
       MainLoopEvents[currentScene].Invoke(this);
@@ -86,16 +90,41 @@ public class EditorWindow
       }
 
       Raylib.EndDrawing();
+
+      foreach (Action lateAction in LateActions)
+        lateAction();
+      LateActions.Clear();
     }
     
+    if (Raylib.IsWindowReady()) Close();
+  }
+
+  public static void Close()
+  {
     rlImGui.Shutdown();
     Raylib.CloseAudioDevice();
     Raylib.CloseWindow();
   }
 
+  public void ResizeRenderTexture(Vector2 newResolution)
+  {
+    Raylib.UnloadRenderTexture(renderTexture);
+    renderTexture = Raylib.LoadRenderTexture((int)newResolution.X, (int)newResolution.Y);
+  }
+
   public void ChangeScene(EditorSceneNames sceneName)
   {
     currentScene = sceneName;
-    Raylib.SetWindowTitle("Level Editor - " + sceneName);
+    Raylib.SetWindowTitle("Zephyrion Level Editor - " + sceneName);
+  }
+
+  private void ViewportUpdate()
+  {
+    Raylib.BeginTextureMode(renderTexture);
+    
+    Raylib.ClearBackground(Color.Yellow);
+    Raylib.DrawText("Hello, world!", 10, 50, 60, Color.White);
+    
+    Raylib.EndTextureMode();
   }
 }
