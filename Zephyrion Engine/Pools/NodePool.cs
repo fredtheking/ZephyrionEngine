@@ -14,7 +14,7 @@ public class NodePool
 
   public Node Register(string name, Node[] children, ComponentTemplate[] components, NodeFlags? flags = null)
   {
-    Node newNode = new Node(name, children, components, flags);
+    Node newNode = new (name, children, components, flags);
     All.Add(newNode);
     return newNode;
   }

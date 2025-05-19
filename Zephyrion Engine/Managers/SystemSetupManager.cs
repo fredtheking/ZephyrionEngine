@@ -1,3 +1,5 @@
+namespace ZephyrionEngine.Managers;
+
 internal class SystemSetupManager
 {
   /// <summary>

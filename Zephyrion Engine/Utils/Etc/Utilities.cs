@@ -6,7 +6,7 @@ public static class Utilities
 {
   private static string InitError(string objRefer) =>
     "Safe initialisation invocation failed. " + objRefer + " does not implement the 'IInitialised' or 'ISetup' interfaces. Consider adding both!";
-  private static string InitAlreadyDid = "Already initialised; call ignored.";
+  private const string INIT_ALREADY_DID = "Already initialised; call ignored.";
   /// <summary>
   /// Safely invokes initialisation. Prevents the object from having an invalid structure or being called multiple times.
   /// </summary>
@@ -25,9 +25,9 @@ public static class Utilities
     if (@object.Initialised)
     {
       if (@object is UuidIdentifier identifier) 
-        identifier.LogInformation(InitAlreadyDid);
+        identifier.LogInformation(INIT_ALREADY_DID);
       else
-        ZE.M.D.Information(InitAlreadyDid);
+        ZE.M.D.Information(INIT_ALREADY_DID);
       return;
     }
     

@@ -20,7 +20,7 @@ public class DebugManager
       if (!_consoleIsInvalid)
         prepostfix = new(sign, (Console.WindowWidth - message.Length - space.Length * 2) / 2);
     }
-    catch (Exception)
+    catch (ArgumentException)
     {
       Warning("Your console/terminal is invalid. 'Separator' debug messages will look shorter as seen below.");
       _consoleIsInvalid = true;

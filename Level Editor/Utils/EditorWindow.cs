@@ -33,9 +33,9 @@ public class EditorWindow
   public void Run()
   {
     if (Global == null)
-      throw new Exception("Global event is null. Consider adding it.");
+      throw new ArgumentException("Global event is null. Consider adding it.");
     if (MainLoopEvents == null)
-      throw new Exception("MainLoopEvents is null. Consider adding it.");
+      throw new ArgumentException("MainLoopEvents is null. Consider adding it.");
     
     Raylib.SetConfigFlags(ConfigFlags.ResizableWindow | ConfigFlags.AlwaysRunWindow);
     Raylib.InitWindow(1360, 1024, "Zephyrion Level Editor - ...");

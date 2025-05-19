@@ -14,7 +14,7 @@ Zephyrion.Setup(new WindowSettings.Builder()
 );
 
 Node HelloObject = ZE.M.R.Node.Register("HelloObject", [], [
-  new CTransform(new Vector2(100, 200)),
+  new TransformComponent(new Vector2(100, 200)),
 ]);
 
 

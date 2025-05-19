@@ -15,7 +15,7 @@ public abstract class UuidIdentifier
   
   private const int UUID_LENGTH = 3;
 
-  public UuidIdentifier()
+  protected UuidIdentifier()
   {
     Uuid = Guid.NewGuid().ToString();
     ShortUuid = Uuid[..UUID_LENGTH] + ".." + Uuid[^UUID_LENGTH..];

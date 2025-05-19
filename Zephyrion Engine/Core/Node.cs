@@ -100,7 +100,7 @@ public class Node : UuidIdentifier, IInitialised, ISetup, IUpdateable, IRenderab
   {
     #region NodeFlagsSetup
 
-    if (!Components.Exists(c => c is CTransform)) 
+    if (!Components.Exists(c => c is TransformComponent)) 
       AddFlag(NodeFlags.NonSpatial);
 
     #endregion

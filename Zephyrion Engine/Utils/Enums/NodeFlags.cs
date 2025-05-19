@@ -32,7 +32,7 @@ public enum NodeFlags : ulong
   /// </summary>
   HasPhysics = 1UL << 6,
   /// <summary>
-  /// Tag to show that object has no "Transform" component (CTransform)
+  /// Tag to show that object has no "Transform" component (TransformComponent)
   /// </summary>
   NonSpatial = 1UL << 7,
   /// <summary>
