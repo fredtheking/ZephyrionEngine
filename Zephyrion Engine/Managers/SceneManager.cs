@@ -5,10 +5,19 @@ namespace ZephyrionEngine.Managers;
 
 public class SceneManager : ISetup, IUpdateable, ISceneable
 {
+  #region Fields
+  
   public Node Current { get; private set; }
   public bool Changed { get; private set; }
   
+  #endregion Fields
+  #region Constructors
+  
   internal SceneManager() { }
+  
+  #endregion Constructors
+  #region Methods
+  #region Inherited
   
   public void Setup()
   {
@@ -39,4 +48,7 @@ public class SceneManager : ISetup, IUpdateable, ISceneable
   {
     
   }
+  
+  #endregion Inherited
+  #endregion Methods
 }

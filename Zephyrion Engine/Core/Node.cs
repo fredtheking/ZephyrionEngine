@@ -1,4 +1,6 @@
 using ZephyrionEngine.Components;
+using ZephyrionEngine.Components.Core;
+using ZephyrionEngine.Components.Physics;
 using ZephyrionEngine.Utils.Enums;
 using ZephyrionEngine.Utils.Etc;
 using ZephyrionEngine.Utils.Interfaces;
@@ -6,30 +8,35 @@ using ZephyrionEngine.Utils.Templates;
 
 namespace ZephyrionEngine.Core;
 
-public class Node : UuidIdentifier, IInitialised, ISetup, IUpdateable, IRenderable, ISceneable, IBinaryFlags<NodeFlags>
+public class Node : UuidIdentifier, IInitialised, ISetup, IUpdateable, IRenderable, ISceneable
 {
+  #region Fields
+  
   public bool Initialised { get; set; }
   public string Name;
   public NodeFlags Flags { get; set; }
   public List<Node> Parents { get; } = [];
   public List<Node> Children { get; }
   public List<ComponentTemplate> Components { get; }
-  public List<MaterialTemplate> Materials { get; } = [];
+  
+  #endregion Fields
+  #region Constructors
 
-  
-  
-  public Node(string name, Node[] children, ComponentTemplate[] components, NodeFlags? flags = null)
+  public Node(string name, Node[] children, ComponentTemplate[] components, NodeFlag? flags = null)
   {
     Name = name;
     Components = components.ToList();
     Children = children.ToList();
-    if (flags is not null) Flags = flags.Value;
+    if (flags is not null) Flags = new NodeFlags(flags.Value);
     
     foreach (Node child in Children)
       child.Parents.Add(this);
   }
-  
-  
+
+  #endregion Constructors
+  #region Methods
+  #region Existance
+  #region Component
   
   public bool HasComponent(ComponentTemplate component) => Components.Contains(component);
   public void AddComponents(params ComponentTemplate[] components)
@@ -43,21 +50,8 @@ public class Node : UuidIdentifier, IInitialised, ISetup, IUpdateable, IRenderab
       ZE.M.PND.Add(() => Components.Remove(component));
   }
   
-  public bool HasMaterial(MaterialTemplate material) => Materials.Contains(material);
-  public void AddMaterials(params MaterialTemplate[] materials)
-  {
-    foreach (MaterialTemplate material in materials)
-      ZE.M.PND.Add(() => Materials.Add(material));
-  }
-  public void RemoveMaterials(params MaterialTemplate[] materials)
-  {
-    foreach (MaterialTemplate material in materials)
-      ZE.M.PND.Add(() => Materials.Remove(material));
-  }
-
-  public bool HasFlag(NodeFlags flag) => ((IBinaryFlags<NodeFlags>)this).HasFlag(flag);
-  public void AddFlag(NodeFlags flag) => ((IBinaryFlags<NodeFlags>)this).AddFlag(flag);
-  public void RemoveFlag(NodeFlags flag) => ((IBinaryFlags<NodeFlags>)this).RemoveFlag(flag);
+  #endregion Component
+  #region Children
 
   public bool HasChild(Node node) => Children.Contains(node);
   public void AddChildren(params Node[] nodes)
@@ -76,6 +70,10 @@ public class Node : UuidIdentifier, IInitialised, ISetup, IUpdateable, IRenderab
       Children.Remove(node);
     }
   }
+
+  #endregion Children
+  #region Parents
+  
   public bool HasParent(Node node) => Parents.Contains(node);
   public void AddParents(params Node[] nodes)
   {
@@ -93,15 +91,23 @@ public class Node : UuidIdentifier, IInitialised, ISetup, IUpdateable, IRenderab
       Parents.Remove(node);
     }
   }
-
   
-
+  #endregion Parents
+  #endregion Existance
+  #region Inherited
+  
   public void Setup()
   {
     #region NodeFlagsSetup
 
     if (!Components.Exists(c => c is TransformComponent)) 
-      AddFlag(NodeFlags.NonSpatial);
+      Flags.Add(NodeFlag.NonSpatial);
+    if (Components.Exists(c => c is ColliderComponent))
+      Flags.Add(NodeFlag.HasCollisions);
+    if (Components.Exists(c => c.Group.HasFlag(ComponentGroup.Physics)))
+      Flags.Add(NodeFlag.HasPhysics);
+    if (Components.Exists(c => c is MaterialComponent))
+      Flags.Add(NodeFlag.HasMaterials);
 
     #endregion
   }
@@ -129,4 +135,7 @@ public class Node : UuidIdentifier, IInitialised, ISetup, IUpdateable, IRenderab
   {
     
   }
+  
+  #endregion Inherited
+  #endregion Methods
 }

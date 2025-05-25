@@ -9,7 +9,6 @@
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <PublishSingleFile>true</PublishSingleFile>
         <PublishTrimmed>true</PublishTrimmed>
-        <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
         <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
         <SelfContained>false</SelfContained>
     </PropertyGroup>

@@ -1,7 +1,9 @@
+using ZephyrionEngine.Utils.Etc;
+
 namespace ZephyrionEngine.Utils.Enums;
 
 [Flags]
-public enum NodeFlags : ulong
+public enum NodeFlag : ulong
 {
   /// <summary>
   /// Ability to behave as root node (declared as starting point for tree update)
@@ -32,11 +34,20 @@ public enum NodeFlags : ulong
   /// </summary>
   HasPhysics = 1UL << 6,
   /// <summary>
+  /// Ability to take part in materials party (set automatically when adding any material-dependent component)
+  /// </summary>
+  HasMaterials = 1UL << 7,
+  /// <summary>
   /// Tag to show that object has no "Transform" component (TransformComponent)
   /// </summary>
-  NonSpatial = 1UL << 7,
+  NonSpatial = 1UL << 8,
   /// <summary>
   /// Ability to be automatically destroyed when leaving current scene (cleaning from pool entirely)
   /// </summary>
-  DestroyOnLeave = 1UL << 8,
+  DestroyOnLeave = 1UL << 9,
+}
+
+public class NodeFlags : BinaryFlags<NodeFlag>
+{
+  public NodeFlags(NodeFlag flags) : base(flags) { }
 }

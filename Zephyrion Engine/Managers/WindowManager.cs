@@ -9,6 +9,8 @@ namespace ZephyrionEngine.Managers;
 
 public class WindowManager : IRun, IClose, ISetup, IUpdateable
 {
+  #region Fields
+  
   public event Action? Resized;
   public event Action? Focused;
   public event Action? Hidden;
@@ -16,7 +18,14 @@ public class WindowManager : IRun, IClose, ISetup, IUpdateable
   public event Action? Maximized;
   public event Action? Minimized;
   
+  #endregion Fields
+  #region Constructors
+  
   internal WindowManager() { }
+  
+  #endregion Constructors
+  #region Methods
+  #region Inherited
   
   public void Run()
   {
@@ -57,4 +66,7 @@ public class WindowManager : IRun, IClose, ISetup, IUpdateable
     if (Raylib.IsWindowMaximized()) Maximized?.Invoke();
     if (Raylib.IsWindowMinimized()) Minimized?.Invoke();
   }
+  
+  #endregion Inherited
+  #endregion Methods
 }

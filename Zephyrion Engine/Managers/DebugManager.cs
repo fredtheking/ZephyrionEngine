@@ -4,13 +4,21 @@ namespace ZephyrionEngine.Managers;
 
 public class DebugManager
 {
+  #region Fields
+  
   public bool ShowBorders { get; set; } = true;
   public bool TurnedOn { get; set; } = true;
   public bool Changed { get; set; } = true;
   private bool _consoleIsInvalid;
   
+  #endregion Fields
+  #region Constructors
+  
   internal DebugManager() { }
-
+  
+  #endregion Constructors
+  #region Methods
+  
   public void Separator(ConsoleColor fgColor = ConsoleColor.Magenta, string message = "", char sign = '=') {
     string space = " ";
     if (message is "") space = "";
@@ -59,4 +67,6 @@ public class DebugManager
     TurnedOn = !TurnedOn;
     Changed = true;
   }
+  
+  #endregion Methods
 }

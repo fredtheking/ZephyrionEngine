@@ -5,9 +5,18 @@ namespace ZephyrionEngine.Managers;
 
 public class RegistryManager : ISetup, IUpdateable, IRenderable
 {
+  #region Fields
+  
   public NodePool Node = new();
   
+  #endregion Fields
+  #region Constructors
+  
   internal RegistryManager() { }
+  
+  #endregion Constructors
+  #region Methods
+  #region Inherited
   
   public void Setup()
   {
@@ -33,4 +42,7 @@ public class RegistryManager : ISetup, IUpdateable, IRenderable
   {
     
   }
+  
+  #endregion Inherited
+  #endregion Methods
 }

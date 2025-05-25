@@ -4,6 +4,8 @@ namespace ZephyrionEngine.Managers;
 
 public class ManagersDirectory : ISetup, IUpdateable, IRenderable
 {
+  #region Fields
+  
   public DebugManager Debug { get; } = new();
   public WindowManager Window { get; } = new();
   public RegistryManager Registry { get; } = new();
@@ -11,8 +13,15 @@ public class ManagersDirectory : ISetup, IUpdateable, IRenderable
   public ProjectManager Project { get; } = new();
   internal SystemSetupManager SystemSetup { get; } = new();
   internal PendingChangesManager PendingChanges { get; } = new();
+  
+  #endregion
+  #region Contructors
 
   internal ManagersDirectory() { }
+  
+  #endregion Contructors
+  #region Methods
+  #region Inherited
   
   public void Setup()
   { 
@@ -50,4 +59,7 @@ public class ManagersDirectory : ISetup, IUpdateable, IRenderable
   {
     Registry.Render();
   }
+  
+  #endregion Inherited
+  #endregion Methods
 }

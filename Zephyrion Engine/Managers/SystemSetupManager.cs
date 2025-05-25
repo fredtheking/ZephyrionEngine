@@ -2,10 +2,16 @@ namespace ZephyrionEngine.Managers;
 
 internal class SystemSetupManager
 {
+  #region Fields
+  
   /// <summary>
   /// Whether the registry setup was successful.
   /// </summary>
   public bool RegistrySuccessful { get; private set; }
+  
+  #endregion Fields
+
+  #region Methods
 
   /// <summary>
   /// Check whether all the systems are being set up successfully.
@@ -23,4 +29,6 @@ internal class SystemSetupManager
     RegistrySuccessful = true;
     return RegistrySuccessful;
   }
+  
+  #endregion Methods
 }

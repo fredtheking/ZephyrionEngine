@@ -7,14 +7,22 @@ namespace ZephyrionEngine.Pools;
 
 public class NodePool
 {
+  #region Fields
+  
   public List<Node> All { get; internal set; } = [];
-  public Node Root { get; internal set; } = new("Root", [], [], NodeFlags.IsRoot | NodeFlags.IsUpdateable | NodeFlags.IsRenderable | NodeFlags.IsPersistent);
-
+  public Node Root { get; internal set; } = new("Root", [], [], NodeFlag.IsRoot | NodeFlag.IsUpdateable | NodeFlag.IsRenderable | NodeFlag.IsPersistent);
+  
+  #endregion Fields
+  #region Constructors
+  
   internal NodePool() { }
-
-  public Node Register(string name, Node[] children, ComponentTemplate[] components, NodeFlags? flags = null)
+  
+  #endregion Constructors
+  #region Methods
+  
+  public Node Register(string name, Node[] children, ComponentTemplate[] components, NodeFlag? flags = null)
   {
-    Node newNode = new (name, children, components, flags);
+    Node newNode = new(name, children, components, flags);
     All.Add(newNode);
     return newNode;
   }
@@ -28,4 +36,6 @@ public class NodePool
   
   public Node? GetByUuid(string uuid) =>
     All.Find(x => x.Uuid == uuid);
+  
+  #endregion Methods
 }

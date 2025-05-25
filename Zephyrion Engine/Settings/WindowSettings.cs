@@ -1,10 +1,13 @@
 using System.Numerics;
 using Raylib_cs;
+using ZephyrionEngine.Utils.Etc;
 
 namespace ZephyrionEngine.Settings;
 
 public class WindowSettings
 {
+  #region Fields
+  
   public string Title { get; set; } = "Hello, Zephyrion!";
   public float Transparency { get; set; } = 1f;
   public Color BackgroundColor { get; set; } = Color.Black;
@@ -14,9 +17,7 @@ public class WindowSettings
   public Vector2 Size { get; set; } = new(800, 600);
   public Vector2 MinSize { get; set; } = new(-1);
   public Vector2 MaxSize { get; set; } = new(-1);
-
   private int _fps = 240;
-
   public int Fps
   {
     get => _fps;
@@ -24,10 +25,12 @@ public class WindowSettings
     {
       if (_fps == value) return;
       _fps = value;
-      Raylib.SetTargetFPS(_fps);
+      ZE.M.PND.Add(() => Raylib.SetTargetFPS(_fps));
     }
   }
-
+  
+  #endregion Fields
+  #region Builder
 
   public class Builder
   {
@@ -100,4 +103,6 @@ public class WindowSettings
 
     public WindowSettings Build() => _settings;
   }
+  
+  #endregion Builder
 }
