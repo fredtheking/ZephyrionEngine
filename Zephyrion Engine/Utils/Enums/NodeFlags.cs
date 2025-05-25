@@ -5,6 +5,7 @@ namespace ZephyrionEngine.Utils.Enums;
 [Flags]
 public enum NodeFlag : ulong
 {
+  None = 0,
   /// <summary>
   /// Ability to behave as root node (declared as starting point for tree update)
   /// </summary>

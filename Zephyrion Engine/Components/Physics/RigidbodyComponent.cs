@@ -5,7 +5,7 @@ namespace ZephyrionEngine.Components.Physics;
 
 public class RigidbodyComponent : ComponentTemplate
 {
-  public RigidbodyComponent() : base()
+  public RigidbodyComponent()
   {
     Group = ComponentGroup.Physics;
   }

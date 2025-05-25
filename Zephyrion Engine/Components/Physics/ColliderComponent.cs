@@ -5,7 +5,7 @@ namespace ZephyrionEngine.Components.Physics;
 
 public class ColliderComponent : ComponentTemplate
 {
-  public ColliderComponent() : base()
+  public ColliderComponent()
   {
     Group = ComponentGroup.Physics;
   }

@@ -27,7 +27,7 @@ public class Node : UuidIdentifier, IInitialised, ISetup, IUpdateable, IRenderab
     Name = name;
     Components = components.ToList();
     Children = children.ToList();
-    if (flags is not null) Flags = new NodeFlags(flags.Value);
+    Flags = new NodeFlags(flags ?? NodeFlag.None);
     
     foreach (Node child in Children)
       child.Parents.Add(this);
