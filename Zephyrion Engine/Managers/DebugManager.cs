@@ -19,6 +19,8 @@ public class DebugManager
   #endregion Constructors
   #region Methods
   
+  public void Separator(string message, char sign = '=') => Separator(ConsoleColor.Magenta, message, sign);
+  
   public void Separator(ConsoleColor fgColor = ConsoleColor.Magenta, string message = "", char sign = '=') {
     string space = " ";
     if (message is "") space = "";
@@ -39,8 +41,6 @@ public class DebugManager
     Console.ResetColor();
     Console.WriteLine();
   }
-
-  public void Separator(string message, char sign = '=') => Separator(ConsoleColor.Magenta, message, sign);
   
   internal void Print(string prefix, string message, ConsoleColor foreColor, ConsoleColor? backColor = null, UuidIdentifier? speaker = null)
   {

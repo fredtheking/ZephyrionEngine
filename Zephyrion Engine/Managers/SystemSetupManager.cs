@@ -1,8 +1,12 @@
+using ZLinq;
+
 namespace ZephyrionEngine.Managers;
 
 internal class SystemSetupManager
 {
   #region Fields
+  
+  internal bool EngineStarted;
   
   /// <summary>
   /// Whether the registry setup was successful.
@@ -10,19 +14,16 @@ internal class SystemSetupManager
   public bool RegistrySuccessful { get; private set; }
   
   #endregion Fields
-
   #region Methods
 
   /// <summary>
   /// Check whether all the systems are being set up successfully.
   /// </summary>
   /// <returns><c>bool</c> of success</returns>
-  public bool CheckOverallSetup()
-  {
-    return ((bool[])[
+  public bool CheckOverallSetup() =>
+    ((bool[])[
       CheckRegistry(),
     ]).All(x => x);
-  }
   
   private bool CheckRegistry()
   {

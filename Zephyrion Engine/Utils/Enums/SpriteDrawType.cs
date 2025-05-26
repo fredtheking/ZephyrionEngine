@@ -2,6 +2,6 @@
 
 public enum SpriteDrawType
 {
-  Primitive = 1,
-  Texture = 2,
+  Primitive,
+  Texture,
 }

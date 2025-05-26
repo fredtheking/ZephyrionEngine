@@ -30,7 +30,8 @@ public static class Zephyrion
       
       Pipeline.Initialisation();
       Pipeline.Begin();
-      
+
+      Managers.SystemSetup.EngineStarted = true;
       Managers.Debug.Separator(ConsoleColor.Green, "Initialisation ended. Runtime process started.");
 
       Pipeline.Run();

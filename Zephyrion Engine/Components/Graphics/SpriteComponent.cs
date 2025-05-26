@@ -1,12 +1,19 @@
 ﻿using Raylib_cs;
+using ZephyrionEngine.Components.Core;
 using ZephyrionEngine.Materials;
 using ZephyrionEngine.Utils.Enums;
+using ZephyrionEngine.Utils.Etc;
 using ZephyrionEngine.Utils.Templates;
 
 namespace ZephyrionEngine.Components.Graphics;
 
 public class SpriteComponent : ComponentTemplate
 {
+  #region Fields
+
+  public TransformComponent Transform = new();
+
+  #endregion Fields
   #region Constructors
   
   public static SpriteComponent Primitive(Color color) =>
@@ -54,4 +61,18 @@ public class SpriteComponent : ComponentTemplate
   }
   
   #endregion
+  #region Methods
+
+  public override void Setup()
+  {
+    ParentSetup(this);
+  }
+
+  public override void Render()
+  {
+    Raylib.DrawRectangleV(Parent.GetComponent<TransformComponent>().Position + Transform.Position,
+      Parent.GetComponent<TransformComponent>().Size + Transform.Size, Color.White);
+  }
+
+  #endregion Methods
 }

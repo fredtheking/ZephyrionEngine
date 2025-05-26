@@ -27,6 +27,13 @@ public class NodePool
     return newNode;
   }
 
+  public Node RegisterScene(string name, Node[] children, ComponentTemplate[] components, NodeFlag? flags = null)
+  {
+    Node newNode = Register(name, children, components, (flags ?? NodeFlag.None) | NodeFlag.IsScene);
+    Root.AddChildren(newNode);
+    return newNode;
+  }
+
   public Node? GetByName(string name)
   {
     Node[] founded = All.Where(x => x.Name == name).ToArray();
@@ -36,6 +43,9 @@ public class NodePool
   
   public Node? GetByUuid(string uuid) =>
     All.Find(x => x.Uuid == uuid);
-  
+
+  public Node? GetByComponent(ComponentTemplate component) =>
+    All.Find(x => x.HasComponent(component));
+
   #endregion Methods
 }

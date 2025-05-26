@@ -13,11 +13,10 @@ Zephyrion.Setup(new WindowSettings.Builder()
   .Build()
 );
 
-Node HelloObject = ZE.M.R.Node.Register("HelloObject", [], [
+Node HelloObject = ZE.M.R.Node.RegisterScene("HelloObject", [], [
   new TransformComponent(new Vector2(100, 200), new Vector2(200, 300)),
   SpriteComponent.Primitive(Color.White), 
 ]);
-HelloObject.Flags.Get();
 
 
 Zephyrion.Run();
