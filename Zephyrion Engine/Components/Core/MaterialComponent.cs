@@ -11,7 +11,7 @@ public class MaterialComponent : ComponentTemplate
   
   public List<MaterialTemplate> Materials;
     
-  #endregion
+  #endregion Fields
   #region Constructors
   
   public MaterialComponent(params MaterialTemplate[] materials)
@@ -20,9 +20,10 @@ public class MaterialComponent : ComponentTemplate
     Materials = materials.ToList();
   }
   
-  #endregion
+  #endregion Constructors
   #region Methods
   #region Existance
+  
   public bool HasMaterial(MaterialTemplate material) => Materials.Contains(material);
   public void AddMaterials(params MaterialTemplate[] materials)
   {
@@ -34,6 +35,7 @@ public class MaterialComponent : ComponentTemplate
     foreach (MaterialTemplate material in materials)
       ZE.M.PND.Add(() => Materials.Remove(material));
   }
-  #endregion
-  #endregion
+  
+  #endregion Existance
+  #endregion Methods
 }

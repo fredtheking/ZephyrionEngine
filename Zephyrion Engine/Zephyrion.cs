@@ -22,9 +22,10 @@ public static class Zephyrion
     if (Managers.SystemSetup.CheckOverallSetup())
     {
       Managers.Debug.Separator(ConsoleColor.DarkYellow, "Hello, world! Setting engine up.");
-      
-      Pipeline.Setup();
-      Managers.PendingChanges.Apply();
+
+      Managers.PendingChanges.Apply();  // Apply scenes parsing
+      Pipeline.Setup();                 
+      Managers.PendingChanges.Apply();  // Apply setup changes
       
       Managers.Debug.Separator(ConsoleColor.Yellow, "Engine started. Booting up initialisation.");
       

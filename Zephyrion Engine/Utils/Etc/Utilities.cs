@@ -4,6 +4,9 @@ namespace ZephyrionEngine.Utils.Etc;
 
 public static class Utilities
 {
+  public const int UNIT = 20;
+  public const int SEGMENTS = 100;
+  
   private static string InitError(string objRefer) =>
     "Safe initialisation invocation failed. " + objRefer + " does not implement the 'IInitialised' or 'ISetup' interfaces. Consider adding both!";
   private const string INIT_ALREADY_DID = "Already initialised; call ignored.";

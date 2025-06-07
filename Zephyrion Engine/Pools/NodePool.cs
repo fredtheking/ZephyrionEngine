@@ -1,3 +1,4 @@
+using ZephyrionEngine.Components.Core;
 using ZephyrionEngine.Core;
 using ZephyrionEngine.Utils.Enums;
 using ZephyrionEngine.Utils.Etc;
@@ -10,7 +11,9 @@ public class NodePool
   #region Fields
   
   public List<Node> All { get; internal set; } = [];
-  public Node Root { get; internal set; } = new("Root", [], [], NodeFlag.IsRoot | NodeFlag.IsUpdateable | NodeFlag.IsRenderable | NodeFlag.IsPersistent);
+  public Node Root { get; } = new("Root", [], [
+    new TransformComponent()
+  ], NodeFlag.IsRoot | NodeFlag.IsUpdateable | NodeFlag.IsRenderable | NodeFlag.IsPersistent);
   
   #endregion Fields
   #region Constructors
@@ -27,7 +30,7 @@ public class NodePool
     return newNode;
   }
 
-  public Node RegisterScene(string name, Node[] children, ComponentTemplate[] components, NodeFlag? flags = null)
+  public Node RegisterAsScene(string name, Node[] children, ComponentTemplate[] components, NodeFlag? flags = null)
   {
     Node newNode = Register(name, children, components, (flags ?? NodeFlag.None) | NodeFlag.IsScene);
     Root.AddChildren(newNode);

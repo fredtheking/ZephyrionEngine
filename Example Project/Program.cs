@@ -5,6 +5,7 @@ using ZephyrionEngine.Components.Core;
 using ZephyrionEngine.Components.Graphics;
 using ZephyrionEngine.Core;
 using ZephyrionEngine.Settings;
+using ZephyrionEngine.Utils.Enums;
 using ZephyrionEngine.Utils.Etc;
 
 Zephyrion.Setup(new WindowSettings.Builder()
@@ -13,10 +14,9 @@ Zephyrion.Setup(new WindowSettings.Builder()
   .Build()
 );
 
-Node HelloObject = ZE.M.R.Node.RegisterScene("HelloObject", [], [
-  new TransformComponent(new Vector2(100, 200), new Vector2(200, 300)),
-  SpriteComponent.Primitive(Color.White), 
+Node HelloObject = ZE.M.R.Node.RegisterAsScene("HelloObject", [], [
+  new TransformComponent(new Vector2(100, 200), new Vector2(200)),
+  new SpritePrimitiveComponent(PrimitiveShape.Rectangle, Color.DarkBlue),
 ]);
-
 
 Zephyrion.Run();

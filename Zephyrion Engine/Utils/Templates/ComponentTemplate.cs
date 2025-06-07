@@ -7,12 +7,24 @@ namespace ZephyrionEngine.Utils.Templates;
 
 public abstract class ComponentTemplate : UuidIdentifier, IInitialised, ISetup, ISceneable, IUpdateable, IRenderable
 {
+  #region Fields
+  
   internal ComponentGroup Group { get; init; }
-  internal Node Parent { get; set; }
+  internal Node Parent { get; set; } = null!;
   public bool Initialised { get; set; }
   
-  internal void ParentSetup(ComponentTemplate component) =>
-    component.Parent = ZE.M.R.Node.GetByComponent(component)!;
+  #endregion Fields
+  #region Methods
+
+  internal T LinkInternalUseComponent<T>() where T : ComponentTemplate
+  {
+    if (Parent.TryGetComponent(out T component)) return component;
+    throw new InvalidOperationException(
+      $"No '{typeof(T).Name}' found in '{Parent.Name}' node for '{GetType().Name}'. " +
+      $"Provide current node with one (or exclude requested component).");
+  }
+
+  #region Inherited
   
   public virtual void Setup() { }
   public virtual void Initialisation() { }
@@ -21,4 +33,7 @@ public abstract class ComponentTemplate : UuidIdentifier, IInitialised, ISetup, 
   public virtual void Leave() { }
   public virtual void Update() { }
   public virtual void Render() { }
+  
+  #endregion Inherited
+  #endregion Methods
 }

@@ -39,6 +39,7 @@ public class WindowManager : IRun, IClose, ISetup, IUpdateable
 
   public void Close()
   {
+    ZE.M.R.Node.Root.Leave();
     if (ZE.S.W.SoundOn) Raylib.CloseAudioDevice();
     Raylib.CloseWindow();
   }

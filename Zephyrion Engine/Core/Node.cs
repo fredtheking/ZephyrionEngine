@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using ZephyrionEngine.Components;
 using ZephyrionEngine.Components.Core;
 using ZephyrionEngine.Components.Physics;
@@ -32,6 +33,8 @@ public class Node : UuidIdentifier, IInitialised, ISetup, IUpdateable, IRenderab
     
     foreach (Node child in Children)
       child.Parents.Add(this);
+    foreach (ComponentTemplate component in components)
+      component.Parent = this;
   }
 
   #endregion Constructors
@@ -43,20 +46,33 @@ public class Node : UuidIdentifier, IInitialised, ISetup, IUpdateable, IRenderab
   public void AddComponents(params ComponentTemplate[] components)
   {
     foreach (ComponentTemplate component in components)
-      ZE.M.PND.Add(() => Components.Add(component));
+      ZE.M.PND.Add(() =>
+      {
+        Components.Add(component);
+      });
   }
   public void RemoveComponents(params ComponentTemplate[] components)
   {
     foreach (ComponentTemplate component in components)
       ZE.M.PND.Add(() => Components.Remove(component));
   }
-  public T? TryGetComponent<T>() where T : ComponentTemplate =>
-    (T?)Components.AsValueEnumerable().FirstOrDefault(c => c is T);
+  public bool TryGetComponent<T>([NotNull] out T component) where T : ComponentTemplate
+  {
+    T? c = (T?)Components.AsValueEnumerable().FirstOrDefault(c => c is T);
+    if (c is not null)
+    {
+      component = c;
+      return true;
+    }
+
+    component = null;
+    return false;
+  }
 
   public T GetComponent<T>() where T : ComponentTemplate
   {
-    T? component = TryGetComponent<T>();
-    if (component is not null) return component;
+    if (TryGetComponent(out T component))
+      return component;
     throw new ArgumentNullException(nameof(component), "Component not found. try 'TryGetComponent' if you are not 100% sure.");
   }
 
@@ -66,33 +82,20 @@ public class Node : UuidIdentifier, IInitialised, ISetup, IUpdateable, IRenderab
   public bool HasChild(Node node) => Children.Contains(node);
   public void AddChildren(params Node[] nodes)
   {
-    Action<Node> addition = node =>
-    {
-      Children.Add(node);
-      node.Parents.Add(this);
-    };
-    
-    foreach (Node node in nodes)
-    {
-      if (ZE.M.SYS.EngineStarted)
-        ZE.M.PND.AddNodeInteraction(addition, node);
-      else addition(node);
-    }
+    foreach (Node node in nodes) 
+      ZE.M.PND.Add(() => {
+        node.Parents.Add(this);
+        Children.Add(node);
+      });
   }
   public void RemoveChildren(params Node[] nodes)
   {
-    Action<Node> removal = node =>
-    {
-      node.Parents.Remove(this);
-      Children.Remove(node);
-    };
-    
-    foreach (Node node in nodes)
-    {
-      if (ZE.M.SYS.EngineStarted)
-        ZE.M.PND.AddNodeInteraction(removal, node);
-      else removal(node);
-    }
+    foreach (Node node in nodes) 
+      ZE.M.PND.Add(() => {
+        node.Leave();
+        node.Parents.Remove(this);
+        Children.Remove(node);
+      });
   }
 
   #endregion Children
@@ -101,33 +104,20 @@ public class Node : UuidIdentifier, IInitialised, ISetup, IUpdateable, IRenderab
   public bool HasParent(Node node) => Parents.Contains(node);
   public void AddParents(params Node[] nodes)
   {
-    Action<Node> addition = node =>
-    {
-      Parents.Add(node);
-      node.Children.Add(this);
-    };
-    
-    foreach (Node node in nodes)
-    {
-      if (ZE.M.SYS.EngineStarted)
-        ZE.M.PND.AddNodeInteraction(addition, node);
-      else addition(node);
-    }
+    foreach (Node node in nodes) 
+      ZE.M.PND.Add(() => {
+        node.Children.Add(this);
+        Parents.Add(node);
+      });
   }
   public void RemoveParents(params Node[] nodes)
   {
-    Action<Node> removal = node =>
-    {
-      node.Children.Remove(this);
-      Parents.Remove(node);
-    };
-    
-    foreach (Node node in nodes)
-    {
-      if (ZE.M.SYS.EngineStarted)
-        ZE.M.PND.AddNodeInteraction(removal, node);
-      else removal(node);
-    }
+    foreach (Node node in nodes) 
+      ZE.M.PND.Add(() => {
+        node.Leave();
+        node.Children.Remove(this);
+        Parents.Remove(node);
+      });
   }
   
   #endregion Parents
@@ -148,7 +138,6 @@ public class Node : UuidIdentifier, IInitialised, ISetup, IUpdateable, IRenderab
       Flags.Add(NodeFlag.HasMaterials);
 
     #endregion NodeFlagsSetup
-
     foreach (ComponentTemplate component in Components)
       component.Setup();
     foreach (Node child in Children)
@@ -156,11 +145,11 @@ public class Node : UuidIdentifier, IInitialised, ISetup, IUpdateable, IRenderab
   }
   public void Initialisation()
   {
-    LogInformation("Ready!");
     foreach (ComponentTemplate component in Components)
-      component.Initialisation();
+      Utilities.SafeInitialisationInvoke(component);
+    LogInformation($"'{Name}' is initialised successfully!");
     foreach (Node child in Children)
-      child.Initialisation();
+      Utilities.SafeInitialisationInvoke(child);
   }
   public void Begin()
   {
@@ -171,6 +160,15 @@ public class Node : UuidIdentifier, IInitialised, ISetup, IUpdateable, IRenderab
   }
   public void Update()
   {
+    #region RootParentsCheck
+
+    if (Flags.Has(NodeFlag.IsRoot) && Parents.Count > 0)
+    {
+      Parents.Clear();
+      LogWarning("Root node cannot have parents!");
+    }
+
+    #endregion RootParentsCheck
     foreach (ComponentTemplate component in Components)
       component.Update();
     foreach (Node child in Children)
