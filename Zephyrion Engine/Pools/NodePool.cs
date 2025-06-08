@@ -1,3 +1,4 @@
+using System.Numerics;
 using ZephyrionEngine.Components.Core;
 using ZephyrionEngine.Core;
 using ZephyrionEngine.Utils.Enums;
@@ -12,7 +13,7 @@ public class NodePool
   
   public List<Node> All { get; internal set; } = [];
   public Node Root { get; } = new("Root", [], [
-    new TransformComponent()
+    new TransformComponent(size: new Vector2())
   ], NodeFlag.IsRoot | NodeFlag.IsUpdateable | NodeFlag.IsRenderable | NodeFlag.IsPersistent);
   
   #endregion Fields
@@ -33,14 +34,14 @@ public class NodePool
   public Node RegisterAsScene(string name, Node[] children, ComponentTemplate[] components, NodeFlag? flags = null)
   {
     Node newNode = Register(name, children, components, (flags ?? NodeFlag.None) | NodeFlag.IsScene);
-    Root.AddChildren(newNode);
+    Root.ImmediateAddChildren(newNode);
     return newNode;
   }
 
   public Node? GetByName(string name)
   {
     Node[] founded = All.Where(x => x.Name == name).ToArray();
-    if (founded.Length > 1) ZE.M.D.Warning("Found more than one Node with the same name. Returning the first one anyway.");
+    if (founded.Length > 1) ZE.M.D.Error("Found more than one Node with the same name. Returning the first one anyway.");
     return founded.FirstOrDefault();
   }
   

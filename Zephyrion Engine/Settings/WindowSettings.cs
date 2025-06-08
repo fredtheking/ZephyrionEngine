@@ -9,14 +9,72 @@ public class WindowSettings
   #region Fields
   
   public string Title { get; set; } = "Hello, Zephyrion!";
-  public float Transparency { get; set; } = 1f;
+
+  private float _transparency = 1f;
+  public float Transparency
+  {
+    get => _transparency;
+    set
+    {
+      _transparency = value;
+      ZE.M.PND.Add(() => Raylib.SetWindowOpacity(_transparency));
+    }
+  }
+
   public Color BackgroundColor { get; set; } = Color.Black;
   public bool SoundOn { get; set; } = true;
-  public Vector2 Position { get; set; } = new(-1, -1);
+  
+  private Vector2 _position = new(-1, -1);
+  public Vector2 Position
+  {
+    get => _position;
+    set
+    {
+      ZE.M.PND.Add(() =>
+      {
+        Vector2 newPos = value == new Vector2(-1) ? new Vector2(Raylib.GetRenderWidth()/2, Raylib.GetRenderHeight()/2) : value;
+        _position = newPos;
+        Raylib.SetWindowPosition((int)newPos.X, (int)newPos.Y);
+      });
+    }
+  }
+  
   public ConfigFlags Flags { get; set; } = ConfigFlags.AlwaysRunWindow | ConfigFlags.VSyncHint;
-  public Vector2 Size { get; set; } = new(800, 600);
-  public Vector2 MinSize { get; set; } = new(-1);
-  public Vector2 MaxSize { get; set; } = new(-1);
+  
+  private Vector2 _size = new(800, 600);
+  public Vector2 Size
+  {
+    get => _size;
+    set
+    {
+      _size = value;
+      if (!ZE.M.SYS.EngineStarted) return;
+      ZE.M.PND.Add(() => Raylib.SetWindowSize((int)_size.X, (int)_size.Y));
+    }
+  }
+  
+  private Vector2 _minSize = new(-1);
+  public Vector2 MinSize
+  {
+    get => _minSize;
+    set
+    {
+      _minSize = value;
+      ZE.M.PND.Add(() => Raylib.SetWindowMinSize((int)_minSize.X, (int)_minSize.Y));
+    }
+  }
+  
+  private Vector2 _maxSize = new(-1);
+  public Vector2 MaxSize
+  {
+    get => _maxSize;
+    set
+    {
+      _maxSize = value;
+      ZE.M.PND.Add(() => Raylib.SetWindowMaxSize((int)_maxSize.X, (int)_maxSize.Y));
+    }
+  }
+  
   private int _fps = 240;
   public int Fps
   {
@@ -70,6 +128,10 @@ public class WindowSettings
       _settings.Position = position;
       return this;
     }
+    public Builder SetPosition(int x, int y) =>
+      SetPosition(new Vector2(x, y));
+    public Builder SetPosition(int xy) =>
+      SetPosition(new Vector2(xy));
     
     public Builder SetFlags(ConfigFlags flags)
     {
@@ -82,18 +144,28 @@ public class WindowSettings
       _settings.Size = size;
       return this;
     }
+    public Builder SetSize(int width, int height) =>
+      SetSize(new Vector2(width, height));
+    public Builder SetSize(int widthXheight) =>
+      SetSize(new Vector2(widthXheight));
     
     public Builder SetMinSize(Vector2 size)
     {
       _settings.MinSize = size;
       return this;
     }
+    public Builder SetMinSize(int width, int height) =>
+      SetMinSize(new Vector2(width, height));
+    public Builder SetMinSize(int widthXheight) =>
+      SetMinSize(new Vector2(widthXheight));
     
     public Builder SetMaxSize(Vector2 size)
     {
       _settings.MaxSize = size;
       return this;
     }
+    public Builder SetMaxSize(int width, int height) =>
+      SetMaxSize(new Vector2(width, height));
     
     public Builder SetFps(int fps)
     {

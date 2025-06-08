@@ -50,6 +50,9 @@ public class DebugManager
     Console.ResetColor();
     Console.WriteLine();
   }
+
+  internal void DebugLog(string message) =>
+    Print("debug", message, ConsoleColor.Cyan);
   
   public void Information(string message) =>
     Print("info", message, ConsoleColor.White);

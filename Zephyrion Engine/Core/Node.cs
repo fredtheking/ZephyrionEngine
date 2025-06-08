@@ -80,44 +80,53 @@ public class Node : UuidIdentifier, IInitialised, ISetup, IUpdateable, IRenderab
   #region Children
 
   public bool HasChild(Node node) => Children.Contains(node);
-  public void AddChildren(params Node[] nodes)
+  public void AddChildren(params Node[] nodes) =>
+    ZE.M.PND.Add(() => ImmediateAddChildren(nodes));
+  internal void ImmediateAddChildren(params Node[] nodes)
   {
-    foreach (Node node in nodes) 
-      ZE.M.PND.Add(() => {
-        node.Parents.Add(this);
-        Children.Add(node);
-      });
+    foreach (Node node in nodes)
+    {
+      node.Parents.Add(this);
+      Children.Add(node);
+    }
   }
-  public void RemoveChildren(params Node[] nodes)
+  public void RemoveChildren(params Node[] nodes) =>
+    ZE.M.PND.Add(() => ImmediateRemoveChildren(nodes));
+
+  internal void ImmediateRemoveChildren(params Node[] nodes)
   {
-    foreach (Node node in nodes) 
-      ZE.M.PND.Add(() => {
-        node.Leave();
-        node.Parents.Remove(this);
-        Children.Remove(node);
-      });
+    foreach (Node node in nodes)
+    {
+      node.Leave();
+      node.Parents.Remove(this);
+      Children.Remove(node);
+    }
   }
 
   #endregion Children
   #region Parents
   
   public bool HasParent(Node node) => Parents.Contains(node);
-  public void AddParents(params Node[] nodes)
+  public void AddParents(params Node[] nodes) =>
+    ZE.M.PND.Add(() => ImmediatelyAddParents(nodes));
+  internal void ImmediatelyAddParents(params Node[] nodes)
   {
-    foreach (Node node in nodes) 
-      ZE.M.PND.Add(() => {
-        node.Children.Add(this);
-        Parents.Add(node);
-      });
+    foreach (Node node in nodes)
+    {
+      node.Children.Add(this);
+      Parents.Add(node);
+    }
   }
-  public void RemoveParents(params Node[] nodes)
+  public void RemoveParents(params Node[] nodes) =>
+    ZE.M.PND.Add(() => ImmediatelyRemoveParents(nodes));
+  public void ImmediatelyRemoveParents(params Node[] nodes)
   {
-    foreach (Node node in nodes) 
-      ZE.M.PND.Add(() => {
-        node.Leave();
-        node.Children.Remove(this);
-        Parents.Remove(node);
-      });
+    foreach (Node node in nodes)
+    {
+      node.Leave();
+      node.Children.Remove(this);
+      Parents.Remove(node);
+    }
   }
   
   #endregion Parents
